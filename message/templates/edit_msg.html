@@ -1,0 +1,39 @@
+<div class="modal fade" id="edit-msg" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    
+    <div class="modal-content rounded" style="height: 50rem;
+                                      width: 47rem;
+                                      top: 52px;
+                                      right: 103px;">
+        
+        <div class="modal-header">
+        <h4 class="modal-title">Add Message</h4>
+        </div>
+        <div class="modal-body" >
+        
+        <form  method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="title"> Title</label>  
+            <div class="">
+              {{form.title}}
+            </div> 
+            <label for="description"> Description</label>   
+            <div class="mt-10">
+              {{form.description}}
+            </div>
+            <div class="">
+              <label for="msgfile"> Upload file</label>   
+              <div class="">
+                {{form.file}}
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        <button type="submit" class="btn btn-primary" id="btnFetch">Add</button>
+        </form>
+        </div>
+    </div>
+    </div>
+  </div>

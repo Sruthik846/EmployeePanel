@@ -1,0 +1,554 @@
+{% extends 'user/home.html' %}
+
+{% block navurl %}
+    <a class="navbar-brand " href="{% url 'idsalary' %}" >Salary Details</a>
+{% endblock  %} 
+
+{% block content %}
+
+  
+  <!-- DESKTOP VIEW -->
+  <div class="d-none d-lg-block">
+        <div class="row justify-content-start" style="position: relative;bottom: 20px;">
+            <table  id="myTable" class="text-light table table-striped mx-3" style="text-align:center; text-transform:capitalize;width: 98%; background: #3146a9;">
+                <thead >
+                    <tr>  
+                        <th colspan="10" class="monthyr" style="text-align:center; text-transform:capitalize;width: 70%;font-size: large;font-weight: 700;">{{month}} {{year}}</th>
+                        <th ><div class="flex justify-end">
+                            <div class="border bg-blue-900 px-2 py-2 rounded-lg text-blue-800">
+                                <label for="" class="mr-2 text-white">Grand Total</label>
+                                <span class="mt-2 mr-2 text-3xl font-bold text-white" style="position: relative; top: 3px;">
+                                {% if grand_total %}
+                                    &#8377;{{grand_total}}
+                                {% else%}
+                                    &#8377;{{salarydata.total_salary}}
+                                {% endif %}
+                                </span>
+                            </div>
+                        </div></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <!-- Basic Salary -->
+        <div class="-mt-2 px-2 py-2 bg-white  shadow-xl rounded-lg flex justify-center" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <div class="overflow-x-auto w-full">
+               <div class="flex justify-center font-bold">
+                 Basic Salary
+              </div> 
+                <table class="w-full whitespace-no-wrap "> 
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-blue-900 border-b">
+                            <th class="text-center py-3">Grade</th>
+                            <th class="text-center py-3">Grade Salary</th>
+                            <th class="text-center py-3">Training</th>
+                            <th class="text-center py-3">Bonus</th>
+                            <th class="text-center py-3">Night Shift</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-blue-100 hover:bg-blue-200">
+                            <td class="text-center py-3 text-md font-bold"">
+                                {{salarydata.grade}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.salary}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.training_salary}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.bonus}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.night_shift}}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-blue-900 border-b">
+                            <th class="text-center py-3">Rent</th>
+                            <th class="text-center py-3">Other</th>
+                            <th class="text-center py-3">Total(Other)</th>
+                            <th class="text-center py-3">Attendance</th>
+                            <th class="text-center py-3">Work Salary</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-blue-100 hover:bg-blue-200">
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.rent}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.other}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.total_other_income}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.attendance}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.total_salary}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- END of Basic Salary -->
+
+        <!-- Special Income -->
+        {% if special_income %}
+        <div class="px-2 py-2 bg-white shadow-xl rounded-lg flex justify-center mt-4" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <div class="overflow-x-auto w-full">
+            <div class="flex justify-center font-bold">
+                Special Income
+            </div> 
+                <table class="w-full whitespace-no-wrap "> 
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-green-900 border-b">
+                            <th class="text-center py-3">HRA</th>
+                            <th class="text-center py-3">Invest Profit</th>
+                            <th class="text-center py-3">Rsg Settlement</th>
+                            <th class="text-center py-3">Minimum Wage</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-green-100 hover:bg-green-200">
+                            <td class="text-center py-3 text-md font-bold">
+                                {{special_income.HRA}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{special_income.invest_profit}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{special_income.Rsg_settlement}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{special_income.minimum_wage}}
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                        
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-green-900 border-b">
+                            <th class="text-center py-3">Thanal</th>
+                            <th class="text-center py-3">From Last Month</th>
+                            <th class="text-center py-3">Festival Bonus</th>
+                            <th class="text-center py-3">Savings</th>
+                            <th class="text-center py-3">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-green-100 hover:bg-green-200">
+                            <td class="text-center py-3 text-md font-bold">
+                                {{special_income.survey_scheme}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{special_income.from_last_month}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{special_income.festival_bonus}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                            {{special_income.savings}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold text-base">
+                                {{special_income.total}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+        </div>
+        {% endif %}
+        <!-- END of Special Income -->
+
+        <!-- Deductions -->
+        {% if deductions %}
+        <div class="px-2 py-2 bg-white shadow-xl rounded-lg flex justify-center mt-4" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <div class="overflow-x-auto w-full">
+                <div class="flex justify-center font-bold">
+                Deductions
+                </div> 
+                <table class="w-full whitespace-no-wrap "> 
+                    <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-red-800 border-b">
+                        <th class="text-center py-3">To Next Month</th>
+                        <th class="text-center py-3">Other</th>
+                        <th class="text-center py-3 text-base">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-red-100 hover:bg-red-200">
+                            <td class="text-center py-3 text-md font-bold">
+                                {{deductions.to_next_month}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{deductions.other}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold text-base">
+                                {{deductions.total}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+        <!-- END of Deductions -->
+       
+    
+  </div>
+
+
+  <!-- MOBILE VIEW -->
+  <div class="d-block d-lg-none">
+    <div class="row justify-content-start" style="position: relative;">
+        <table  id="myTable" class="text-light table table-striped mx-3 -mt-16" style="text-align:center; text-transform:capitalize;width: 98%; background: #3146a9;">
+          <thead >
+              <tr>
+                <th colspan="10" class="monthyr" style="text-align:center; text-transform:capitalize">{{month}} {{year}}</th>
+              </tr>
+          </thead>
+        </table>
+      </div>
+    {% if not special_income %}
+    <div class="-mt-1.5" style="position: relative;">
+        <div class="row">
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Metric Card-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize" style="font-size: 15px; color: rgb(204, 212, 219);">Grade</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.grade}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Metric Card-->
+            </div>
+            <div class="col-sm-6" style="width:50%;"> 
+            <!--Metric Card-->
+            <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:150px;">
+                <div class="flex flex-row items-center">
+                    <div class="flex-1 text-right mr-3">
+                        <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Attendance</h5><br>
+                        <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.attendance}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Grade Salary-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:135px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Grade salary</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.salary}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Grade Salary-->
+            </div>
+            <div class="col-sm-6" style="width:50%;"> 
+            <!--Training-->
+            <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:135px;">
+                <div class="flex flex-row items-center">
+                    <div class="flex-1 text-right mr-3">
+                        <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Training</h5><br>
+                        <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.training_salary}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Training-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Bonus-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Bonus</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.bonus}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Bonus-->
+            </div>
+            <div class="col-sm-6" style="width:50%;"> 
+            <!--Night Shift-->
+            <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                <div class="flex flex-row items-center">
+                    <div class="flex-1 text-right mr-3">
+                        <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Night Shift</h5><br>
+                        <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.night_shift}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Night Shift-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Rent-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Rent</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.rent}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Rent-->
+            </div>
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Other-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Other</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.other}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Other-->
+            </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-sm-12" > 
+            <!--Metric Card-->
+            <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                <div class="flex flex-row items-center">
+                    <div class="flex-1 text-right mr-3">
+                        <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Total Salary</h5><br>
+                        <h3 class="font-bold text-light text-left" style="font-size: xx-large; margin-left: 30px;">&#8377; {{salarydata.total_salary}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <!-- Basic Salary -->
+        <div class="row justify-content-between bg-blue-900 mx-0 rounded-md text-light font-bold text-xl py-12 mb-4 collapsible basic-salary">
+            <div class="col-7">
+                Basic Salary
+            </div>
+            <div class="col text-lg">
+                &#8377; {{salarydata.total_salary}}
+            </div>
+        </div>
+        <!-- Basic Salary Content -->
+        <div class="-mt-2 px-2 py-2 bg-blue-900 shadow-xl rounded-lg flex justify-center salary-content" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <div class="overflow-x-auto w-full">
+            <div class="flex justify-center font-bold">
+                </div> 
+                <table class="w-full whitespace-no-wrap "> 
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-blue-900 border-b">
+                            <th class="text-center py-3">Grade</th>
+                            <th class="text-center py-3">Grade Salary</th>
+                            <th class="text-center py-3">Training</th>
+                            <th class="text-center py-3">Bonus</th>
+                            <th class="text-center py-3">Night Shift</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-blue-100 hover:bg-blue-200">
+                            <td class="text-center py-3 text-md font-bold"">
+                                {{salarydata.grade}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.salary}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.training_salary}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.bonus}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.night_shift}}
+                            </td>
+                        </tr>
+                    </tbody>
+                    <thead>
+                        <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-blue-900 border-b">
+                            <th class="text-center py-3">Rent</th>
+                            <th class="text-center py-3">Other</th>
+                            <th class="text-center py-3">Total<br>(Other)</th>
+                            <th class="text-center py-3">Attendance</th>
+                            <th class="text-center py-3">Work Salary</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-blue-100 hover:bg-blue-200">
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.rent}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.other}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.total_other_income}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.attendance}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{salarydata.total_salary}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    <!-- Special Income -->
+        <div class="row justify-content-start bg-green-900 mx-0 rounded-md text-light font-bold text-xl px-10 py-12 mb-4 collapsible special-income">
+            <div class="col-7">
+                Special Income
+            </div>
+            <div class="col text-lg">
+                &#8377; {{special_income.total|floatformat}}
+            </div>
+        </div>
+        {% if special_income %}
+        <div class="px-2 py-2 bg-green-900 shadow-xl rounded-lg flex justify-center mt-4 salary-content" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <div class="overflow-x-auto w-full">
+            
+            <table class="w-full whitespace-no-wrap "> 
+                <thead>
+                <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-green-900 border-b">
+                    <th class="text-center py-3">HRA</th>
+                    <th class="text-center py-3">Invest Profit</th>
+                    <th class="text-center py-3">Rsg. Settlement</th>
+                    <th class="text-center py-3">Min. Wage</th>
+                    <th class="text-center py-3">Thanal</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y">
+                    <tr class="text-gray-700 bg-green-100 hover:bg-green-200">
+                        <td class="text-center py-3 text-md font-bold">
+                            {{special_income.HRA}}
+                        </td>
+                        <td class="text-center py-3 text-md font-bold">
+                            {{special_income.invest_profit}}
+                        </td>
+                        <td class="text-center py-3 text-md font-bold">
+                            {{special_income.Rsg_settlement}}
+                        </td>
+                        <td class="text-center py-3 text-md font-bold">
+                            {{special_income.minimum_wage}}
+                        </td>
+                        <td class="text-center py-3 text-md font-bold">
+                            {{special_income.survey_scheme}}
+                        </td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-green-900 border-b">
+                        <th class="text-center py-3">From Last Month</th>
+                        <th class="text-center py-3">Festival Bonus</th>
+                        <th class="text-center py-3">Savings</th>
+                        <th class="text-center py-3" colspan="2">Total</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y">
+                    <tr class="text-gray-700 bg-green-100 hover:bg-green-200">
+                        <td class="text-center py-3 text-md font-bold">
+                            {{special_income.from_last_month}}
+                        </td>
+                        <td class="text-center py-3 text-md font-bold">
+                            {{special_income.festival_bonus}}
+                        </td>
+                        <td class="text-center py-3 text-md font-bold">
+                        {{special_income.savings}}
+                        </td>
+                        <td class="text-center py-3 text-md font-bold text-base" colspan="2" >
+                            {{special_income.total}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        {% endif %}
+    
+    <!-- Deductions -->
+        <div class="row justify-content-start bg-red-900 mx-0 rounded-md text-light font-bold text-xl px-10 py-12 mb-4 collapsible deduction">
+            <div class="col-7">
+                Deductions
+            </div>
+            <div class="col text-lg">
+                &#8377; {{deductions.total|floatformat}}
+            </div>
+        </div>
+        {% if deductions %}
+        <div class="px-2 py-2 bg-red-900 shadow-xl rounded-lg flex justify-center mt-4 salary-content" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+            <div class="overflow-x-auto w-full">
+                <table class="w-full whitespace-no-wrap "> 
+                    <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-red-900 border-b">
+                        <th class="text-center px-4 py-3">To Next Month</th>
+                        <th class="text-center px-4 py-3">Other</th>
+                        <th class="text-center px-4 py-3 text-base">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-red-100 hover:bg-red-200">
+                            <td class="text-center px-6 py-3 text-md font-bold">
+                                {{deductions.to_next_month}}
+                            </td>
+                            <td class="text-center px-6 py-3 text-md font-bold">
+                                {{deductions.other}}
+                            </td>
+                            <td class="text-center px-6 py-3 text-md font-bold text-base">
+                                {{deductions.total}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row justify-content-start bg-blue-900 mx-0 h-32 rounded-md text-light font-bold text-md px-3 py-12">
+        <span class="pt-3">Grand Total</span>   
+        <span class="pl-12 text-4xl">&#8377;
+            {% if grand_total %}
+                {{grand_total}}
+            {% else %}
+                {{salarydata.total_salary}}
+            {% endif %}
+        </span>
+        </div>
+    {% endif %}
+  </div>
+  
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+    
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+    </script>
+{% endblock %}

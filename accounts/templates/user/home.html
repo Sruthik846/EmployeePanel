@@ -1,0 +1,461 @@
+
+<!doctype html>
+<html lang="en">
+{% load static %}
+{% load active_link_tags %}
+<head>
+  <meta charset="utf-8" />
+
+  
+  <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>
+    {% block title %} {{page_title}} {% endblock %} 
+  </title>
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+  <!-- CSS Files -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/paper-dashboard.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js" integrity="sha256-XF29CBwU1MWLaGEnsELogU6Y6rcc5nCkhhx89nFMIDQ=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+ 
+  <style>
+    html::-webkit-scrollbar{
+        width: 0.4vw;
+    }
+    html::-webkit-scrollbar-thumb{
+        background-color: rgb(8, 53, 151);
+    }
+    html::-webkit-scrollbar-thumb:hover{
+        background-color: rgba(10, 8, 126, 0.952);
+    }
+    html::-webkit-scrollbar-track{
+        background-color: rgba(26, 23, 172, 0.116);
+    }
+    html::-webkit-scrollbar-track:hover{
+        background-color: rgba(142, 140, 163, 0.637);
+    }
+    a:hover {
+      text-decoration: none;
+      color: white;
+    }
+    #frow > div > a.active
+    {
+      color: white;
+    }
+    body > div > div.sidebar > div.sidebar-wrapper > ul > li.active > a > p
+    {
+      color: white;
+    }
+    .active{
+      background-color: #224092;
+    }
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #224092;
+      color: darkgrey;
+      height : 10px;
+    }
+    #newmsg {
+      background: red;
+      color: white;
+      font-weight: 400;
+      font-size: 10px;
+      animation: mymove 2s infinite;
+    }
+
+    @keyframes mymove {
+      from {background-color: rgb(185, 0, 0);}
+      to {background-color: rgb(0, 67, 211);}
+    }
+    #sidecollps {
+      -webkit-transition: width 1.5s ease;
+      -moz-transition: width0 1.5s ease;
+      -o-transition: width 1.5s ease;
+      transition: width 1.5s ease;
+      /* display: inline-block; */
+      float: right;
+      overflow: hidden;
+      white-space: nowrap;
+      background: none;
+      vertical-align: right;
+      line-height: 30px;
+      height: 30px;
+      width: 0px;
+    }
+    #sidecollps.in {
+      width: 584px;
+    }
+    .colorbtn{
+      background: none;
+      color: #000;
+    }
+    .colorbtn:hover {
+      background: none;
+    }
+    .colorbtn:focus {
+      outline: none;
+      background: none;
+      box-shadow: none;
+    }
+    #grad1 {
+      background-image: linear-gradient(to right, rgb(0, 56, 129) , rgb(0, 14, 139));
+      border-radius: 5px;
+    }
+    /* Colllapsible DIV */
+    .collapsible {
+      color: white;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+    }
+    .basic-salary.active{
+      background-color: rgb(10, 22, 88);
+    }
+    .special-income.active{
+      background-color: rgb(2, 48, 35);
+    }
+    .deduction.active{
+      background-color: rgb(87, 9, 9);
+    }
+    .salary-content {
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
+    }
+
+    @media (min-width: 600px ){
+      .mobilepnch {
+        display: none !important;
+      }
+
+    }
+    @media (min-width: 810px ) and (max-width: 890px) {
+      .dnonediv{
+        display: none;
+      }
+      .daycard{
+        font-size: 17px;
+      }
+      .card-title{
+        font-size: small;
+      }
+      .mobilepnch{
+        display: none !important;
+      }
+    }
+    @media (min-width: 890px ) and (max-width: 910px) {
+      .dnonediv{
+        display: none;
+      }
+      .daycard{
+        font-size: 17px;
+      }
+      .card-title{
+        font-size: small;
+      }
+      .mobilepnch{
+        display: none !important;
+      }
+    }
+    @media (min-width: 911px ) and (max-width: 1200px) {
+      .dnonediv{
+        display: none;
+      }
+      .daycard{
+        font-size: 20px;
+      }
+      .card-title{
+        font-size: small;
+      }
+      .mobilepnch{
+        display: none !important;
+      }
+      
+
+    }
+    /* special case */
+    @media (min-width: 1201px ) and (max-width: 1309px) {
+      
+      .xldiv{
+        display: none;
+      }
+      .daycard{
+        font-size: 22px;
+      }
+      .card-title{
+        font-size: small;
+      }
+      
+    }
+    @media (min-width: 1310px ) and (max-width: 1453px) {
+      
+      .dnonediv{
+        display: none !important;
+      }
+      .daycard{
+        font-size: 10px;
+      }
+      .card-title{
+        font-size: small;
+      }
+      
+    }
+    @media (min-width: 1453px) and (max-width: 1660px)  {
+      
+      .dnonediv{
+        display: none;
+      }
+      .daycard{
+        font-size: 15px;
+      }
+      .card-title{
+        font-size: small;
+      }
+      
+    }
+    @media (min-width: 1661px){
+      
+      .dnonediv{
+        display: none;
+      }
+      .daycard{
+        font-size: 18px;
+      }
+      .card-title{
+        font-size: small;
+      }
+    }
+    @media (max-width: 600px){
+      .normaldiv{
+        display: none !important;
+      }
+    }
+    @media (max-width: 768px) {
+      .money-bag{
+        width: 50px;
+        margin-left: 6px;
+      }
+    }
+    .viewpunch{
+      display: none;
+    }
+    .mbpunch{
+      display: none;
+    }
+    @media (min-width: 1300px){
+      .desk{
+        display: block;
+      }
+      .lap{
+        display: none;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width:1300px){
+      .desk{
+        display: none;
+      }
+      .lap{
+        display: block;
+      }
+    }
+    .shadow {
+      box-shadow: 10px 10px 8px #758ad3!important;
+      color: black;
+      background-color: white;
+      }
+      .shadow:hover{
+        background-color: #224092;
+        color: white;
+      }
+      .sh{
+        /* box-shadow: 10px 10px 8px #cc7c76!important; */
+        background-color: white;
+        color: black;
+      }
+      .sh:hover{
+        background-color: rgb(194, 16, 16);
+        color: white;
+      }
+      .zoom:hover {
+        font-size: large;
+        color: #224092;
+        -ms-transform: scale(1.1); /* IE 9 */
+        -webkit-transform: scale(1.1); /* Safari 2-8 */
+        transform: scale(1.1);
+      }
+      .viewa:hover{
+        color:#224092!important;
+      }
+      .js-arrow-down {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 7px solid #233354;
+    position: relative;
+    left: 7px;
+}
+
+.js-arrow-up {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 7px solid #233354;
+    position: relative;
+    left: 6px;
+    
+}
+.shadow:hover .js-arrow-up{
+  border-bottom: 7px solid white;
+}
+      
+  </style>
+</head>
+
+<body class="" style="background: rgb(239, 240, 241);">
+    <div class="wrapper">
+        <div class="sidebar"  data-active-color="white" > 
+          <div class="logo"  style="background: #a5aaad;">
+            <img src="https://infolks.info/images/logo/logo.svg" style="height: 49px;width: 140px;"></img>
+          </div>
+          <div class="sidebar-wrapper" style="height: 100%; background: #a5aaad;overflow: hidden;">
+            <ul class="nav">
+              <li class="{% if nbar == 'pnhome' %}active{% endif %}">
+                <a href="{% url 'pnhome' %}">
+                  <i class="fas fa-laptop"></i>
+                  <p class="font-bold text-blue-800 text-capitalize" style="font-size: 16px;">Attendance</p>
+                </a>
+              </li>
+              <li class="{% if nbar == 'idsalary' %}active{% endif %}">
+                <a href="{% url 'idsalary' %}">
+                  <i class="fas fa-coins"></i>
+                  <p class="font-bold text-blue-800 text-capitalize" style="font-size: 16px;">Salary</p>
+                </a>
+              </li>
+              <li class="{% if nbar == 'msgHome' %}active{% endif %}">
+                <a href="{% url 'msgHome' %}">
+                  <i class="fas fa-comments"></i>
+                  <p class="font-bold text-blue-800 text-capitalize" style="font-size: 16px; text-transform: capitalize;">Messages
+                    {% if unreadmsg %}
+                    <span class="px-1 py-0.5 ml-2 rounded-full" id="newmsg">NEW</span>
+                    {% endif %}
+                  </p>
+                  
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="main-panel" style="height: 100%; background: rgb(239, 240, 241);">
+            <!-- Navbar -->
+            <div class="d-none d-lg-block">
+              <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+                <div class="container-fluid ">
+                  <div class="navbar-wrapper">
+                    <div class="navbar-toggle"> 
+                      <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon" >
+                          <i class="fas fa-bars"></i>
+                        </span>
+                      </button>
+                      
+                    </div>
+                    <!-- <a class="navbar-brand " href="{% url 'pnhome' %}" >Attendance</a> -->
+                    {% block navurl %}
+                    {% endblock %} 
+                  </div>
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" style="position: absolute;
+                    right: 0;">
+                      <i class="fa fa-user"></i>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-end" style="background: #f2f2f3;position: fixed;right:0; " id="navigation">
+                      <ul class="navbar-nav">
+                        <li class="nav-item btn-rotate dropdown">
+                          <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user"></i>
+                        
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                            <span class="dropdown-item">IF0{{ifid}}</span>
+                            <span class="dropdown-item">{{empname}}</span>
+                            <a class="dropdown-item " href="{% url 'logoutpage' %}">signout<i class="fas fa-sign-out-alt ml-1  text-red-500"  style="position: relative;top: 2px;"></i></a>
+                          </div>
+                        </li>
+                        <li class="nav-item">
+                          <span class="nav-link btn-rotate" style="color: blue;font-size: small;">
+                            IF0{{ifid}}
+                          </span>
+                        </li>
+                      </ul>
+                    </div>
+                </div>
+              </nav>
+            </div>
+            <!-- End Navbar -->
+            <!-- MOBILE NAVBAR -->
+            {% include 'user/navbar.html' %}
+
+            <div class="content">
+              {% block content %}
+              {% endblock content %}
+            </div>
+            <div class="d-block d-lg-none">
+              <div class="footer" id="footer">
+                <div class="row" id="frow">
+                <div class="col-3 my-n3" style="text-align: center;">
+                  <a href="{% url 'pnhome' %}" class="{% if nbar == 'pnhome' %}active{% endif %}"><i class="fas fa-laptop"></i><p style="font-size: xx-small;">Attendance</p></a>
+                </div>
+                <div class="col-3 my-n3" style="text-align: center;">
+                  <a href="{% url 'idsalary' %}" class="{% if nbar == 'idsalary' %}active{% endif %}"><i class="fas fa-coins"></i><p style="font-size: xx-small;">Salary</p></a>
+                </div>
+                <div class="col-3 my-n3" style="text-align: center;">
+                  <a href="{% url 'msgHome' %}" class="{% if nbar == 'msgHome' %}active{% endif %}"><i class="fas fa-comments"></i><p style="font-size: xx-small;">Message</p></a>
+                </div>
+                <div class="col-3 my-n3" style="text-align: center;">
+                  <a href="{% url 'logoutpage' %}"><i class="fas fa-sign-out-alt text-red-700"></i><p style="font-size: xx-small;">Signout</p></a>
+                </div>
+              </div>
+              </div>
+            </div>
+        </div>
+    </div>
+      
+      <!--   Core JS Files   -->
+      <script src="{% static 'js/core/jquery.min.js' %}"></script>
+      <script src="{% static 'js/core/popper.min.js' %}"></script>
+      <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+      <script src="{% static 'js/plugins/perfect-scrollbar.jquery.min.js' %}"></script>
+      <!-- Chart JS -->
+      <script src="{% static 'js/plugins/chartjs.min.js' %}"></script>
+      <!--  Notifications Plugin    -->
+      <script src="{% static 'js/plugins/bootstrap-notify.js' %}"></script>
+      <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+      <script src="{% static 'js/paper-dashboard.min.js' %}" type="text/javascript"></script>
+      <script>
+        $(document).ready(function() {
+          // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+          demo.initChartsPages();
+        });
+      </script>
+</body>
+
+</html>

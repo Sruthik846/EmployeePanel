@@ -1,0 +1,109 @@
+{% extends 'ifoadmin/base.html' %}
+
+
+{% block content %}
+<div class="container" >
+
+{% for msg in messages %}
+		{% if msg.tags == 'success' %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+		{% endif %}
+		{% if msg.tags == 'error' %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+		{% endif %}
+{% endfor %}
+
+{% if userdata %}
+	<div class="row justify-content-between">
+		<div class="col-6"style="float: left;position: relative; right:15px">
+			<input type="search" placeholder="Search IFID / Name" class="form-control search-input" data-table="userTable" style="width: 280px;"/>
+		</div>
+
+
+	</div>
+	<div class="row justify-content-between">
+		<!-- <div class="table table-responsive">	 -->
+		<table  id="userTable" class="table table-striped table-dark userTable">
+			<thead>
+				<tr>
+                    <th scope="col">IFID</th>
+                    <th scope="col" >USERNAME</th>
+                    <th scope="col">EMAIL</th>
+                    <th scope="col">MOBILE NO</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in userdata %}
+				<tr  class="active-row">
+					<td>{{x.if_id}}</td>
+					<td style="text-transform:none;">{{x.empname}}</td>
+					<td style="text-transform:none;">{{x.emailid}}</td>
+					<td>+91 {{x.mobileNo}}</td>
+					<td><a class="deactivate" href="#" data-toggle="modal" data-target="#deactivate-{{x.if_id}}">Deactivate <i class="fas fa-ban"></i></a></td>
+					{% include 'deactivate_user.html' %}
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>		
+    {% else %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+			No users Found
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+    {% endif %}
+</div>
+<!-- SEARCH TABLE -->
+<script>
+	(function(document) {
+		'use strict';
+
+		var TableFilter = (function(myArray) {
+			var search_input;
+
+			function _onInputSearch(e) {
+				search_input = e.target;
+				var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
+				myArray.forEach.call(tables, function(table) {
+					myArray.forEach.call(table.tBodies, function(tbody) {
+						myArray.forEach.call(tbody.rows, function(row) {
+							var text_content = row.textContent.toLowerCase();
+							var search_val = search_input.value.toLowerCase();
+							row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
+						});
+					});
+				});
+			}
+
+			return {
+				init: function() {
+					var inputs = document.getElementsByClassName('search-input');
+					myArray.forEach.call(inputs, function(input) {
+						input.oninput = _onInputSearch;
+					});
+				}
+			};
+		})(Array.prototype);
+
+		document.addEventListener('readystatechange', function() {
+			if (document.readyState === 'complete') {
+				TableFilter.init();
+			}
+		});
+
+	})(document);
+</script>
+{% endblock %}

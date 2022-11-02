@@ -1,0 +1,30 @@
+<!-- Modal -->
+<div class="modal fade" id="add-technicalteam" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content shadow-2xl" style="width:500px; height:270px;top: 52px;">
+        <div class="modal-header">
+        <h4 class="modal-title font-bold">ADD HR TEAM</h4>
+        </div>
+        <div class="modal-body" >
+        <form  method="post" action="{% url 'add-technical' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row" style="position: relative; top: 22px">
+                <div class="col-3">
+                    <label for="ifid"  style="float: left;position: relative;top: 4px;">IFID&nbsp;</label>
+                    <input type="number" name="ifid" class="form-control" required style="height: 30px; padding: 3px; width: 50px;">
+                </div>
+                <div class="col">
+                    <label for="name" >NAME&nbsp;</label>
+                    <input type="text" class="border" name="name" style="height: 30px; padding: 4px;width: 80%;">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        <button type="submit" class="btn btn-primary" id="btnFetch">Add</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>

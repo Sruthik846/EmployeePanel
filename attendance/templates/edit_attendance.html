@@ -1,0 +1,393 @@
+{% extends 'ifoadmin/base.html' %}
+{% block content %}
+<div class="container">
+    <div class="">
+        {% for msg in messages %}
+		{% if msg.tags == 'success' %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+		{% endif %}
+		{% if msg.tags == 'error' %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+		{% endif %}
+	{% endfor %}
+    </div> 
+    <div class="flex justify-center">
+        <div class="" style="width: 66%;">
+            <a href="/attendance/punchingdetails/{{year}}/{{month}}"
+            class="flex items-center float-left justify-center px-2 py-1 text-xs uppercase border rounded-full gap-x-1 hover:bg-gray-50 text-decoration-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
+                clip-rule="evenodd" />
+            </svg>
+            Go Back
+            </a>
+        </div>
+        
+      </div>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="flex justify-center">
+            <div class="" style="width: 66%;border: 1px solid;padding: 36px;" >
+                <div class="row" >
+                    <div class="col">
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="id_ifid" >IFID</label>
+                            </div>
+                            <div class="col">
+                                <span>{{form.ifid}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="id_WFO_attendance" >WFO Attendance</label>
+                            </div>
+                            <div class="col">
+                                <span>{{form.WFO_attendance}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="id_WFH_attendance" >WFH Attendance</label>
+                            </div>
+                            <div class="col">
+                                <span>{{form.WFH_attendance}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="id_OT_attendance" >OT Attendance</label>
+                            </div>
+                            <div class="col">
+                                <span>{{form.OT_attendance}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="id_total_Attendance" >total_Attendance</label>
+                            </div>
+                            <div class="col">
+                                <span>{{form.total_Attendance}}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col">
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="id_name" >Name</label>
+                            </div>
+                            <div class="col">
+                                <span>{{form.name}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="id_Punching_Mistake" >Punching Mistake</label>
+                            </div>
+                            <div class="col">
+                                <span>{{form.Punching_Mistake}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="id_Night_shift" >Night Shift</label>
+                            </div>
+                            <div class="col">
+                                <span>{{form.Night_shift}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <label for="id_Deduction" >Deduction</label>
+                            </div>
+                            <div class="col">
+                                <span>{{form.Deduction}}</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center mt-2">
+            <div class="" style="width: 66%;border: 1px solid;padding: 36px;" >
+                <div class="row" >
+                    <div class="col">
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 1
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_1}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 2
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_2}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 3
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_3}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 4
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_4}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 5
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_5}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 6
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_6}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 7
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_7}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 8
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_8}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 9
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_9}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 10
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_10}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 11
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_11}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 12
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_12}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 13
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_13}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 14
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_14}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 15
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_15}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 16
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_16}}</span>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col">
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 17
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_17}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 18
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_18}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 19
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_19}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 20
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_20}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 21
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_21}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 22
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_22}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 23
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_23}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 24
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_24}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 25
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_25}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 26
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_26}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 27
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_27}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 28
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_28}}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 29
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_29}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 30
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_30}}</span>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col">
+                                {{month}} 31
+                            </div>
+                            <div class="col">
+                                <span>{{form.date_31}}</span>
+                            </div>
+                        </div>
+                        <div class="row float-right mr-4 mt-6">
+                            <input type="submit" value="UPDATE" class="upbtn" name="Submit" style="cursor: pointer;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+    
+    </form>
+</div>
+{% endblock %}

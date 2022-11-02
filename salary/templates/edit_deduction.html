@@ -1,0 +1,55 @@
+<!-- Modal -->
+<div class="modal fade" id="edit-deduction" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    
+    <div class="modal-content" style="width:750px; height:275px;top: 410px;right: 100px;">
+        
+        <div class="modal-header">
+            <div class="flex justify-between">
+            {{basic_salary.ifid}} {{basic_salary.name}} (Deductions)
+            </div>
+        </div>
+        <div class="modal-body" >
+        <form  method="post" action="{% url 'edit-deduction' basic_salary.year basic_salary.month basic_salary.ifid %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="row border py-1.5 -mt-1">
+                        <div class="col-4">
+                            To Next Month
+                        </div>
+                        <div class="col mt-1.5">
+                            {{deduction_form.to_next_month}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    
+                    <div class="row border py-3 -mt-1">
+                        <div class="col-4">
+                            Other
+                        </div>
+                        <div class="col -mt-1">
+                            {{deduction_form.other}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Total
+                        </div>
+                        <div class="col -mt-1">
+                            {{deduction_form.total}}
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        <button type="submit" class="btn btn-primary" id="btnFetch">Update</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>

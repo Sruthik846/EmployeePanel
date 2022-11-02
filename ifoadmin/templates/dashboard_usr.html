@@ -1,0 +1,44 @@
+{% extends 'ifoadmin/base.html' %}
+{% block content %}
+
+
+<div class="container mt-5 mb-3">
+    <div class="row">
+        <div class="col-md-6">
+        <a href="{% url 'users' %}">
+            <div class="card l-bg-green text-center">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center"><br>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h3 class="heading">Registered Users <span style="color: rgba(210, 241, 209, 0.212);">: {{usercount}}</span> </h3>
+                    <div class="mt-5">
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </a>
+        </div>
+        <div class="col-md-6">
+        <a href="{% url 'usercred' %}">
+            <div class="card l-bg-green text-center">
+                <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                        <br>
+                    </div>
+                </div>
+                <div class="mt-5">
+                    <h3 class="heading">User Credentials</h3>
+                    <div class="mt-5">
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </a>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock %}

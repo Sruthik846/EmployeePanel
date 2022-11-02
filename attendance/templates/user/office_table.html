@@ -1,0 +1,215 @@
+{% extends 'user/home.html' %}
+
+{% block navurl %}
+  <a class="navbar-brand " href="{% url 'pnhome' %}" >Attendance</a>
+{% endblock  %} 
+
+{% block content %}
+
+<div class="row justify-content-center d-none d-md-block">
+    <table  id="myTable" class=" table table-striped" style="text-align:center; text-transform:uppercase;background-color: white;box-shadow: 0.25em 0.25em 2em 0px rgb(0 0 0 / 40%);overflow: hidden;">
+      <thead>
+        <!-- <tr >
+          <th colspan="10" style="background: white; color: rgb(0, 0, 0); border: none;" class="tableHeader">IF{{punchdata.ifid}}   &nbsp; {{punchdata.name}}</th>
+        </tr> -->
+        <tr>
+          <th colspan="10" class="monthyr">{{month_name}} {{year}}</th>
+        </tr>
+          </thead>
+      <tbody>
+          <tr style="background-color: #224092;color: white;">
+            <th>WFO Attendance</th>
+            <th>OT Attendance</th>
+            <th>WFH Attendance</th>
+            <th>No of punching mistakes</th>
+            
+          </tr>
+          <tr style="height:80px;">
+            <td class="zoom font-weight-bold">{{punchdata.WFO_attendance}}</td>
+            <td class="zoom font-weight-bold">{{punchdata.OT_attendance}}</td>
+            <td class="zoom font-weight-bold">{{punchdata.WFH_attendance}}</td>
+            <td class="zoom font-weight-bold">{{punchdata.Punching_Mistake}}</td>
+            
+          </tr >
+          <tr style="background-color: #224092;color: white;">
+            <th>Night Shift</th>
+            <th>Deductions</th>
+            <th>Total Attendance</th>
+            <th></th>
+          </tr>   
+          <tr>
+            <td class="zoom font-weight-bold">{{punchdata.Night_shift}}</td>
+            <td class="zoom font-weight-bold">{{punchdata.Deduction}}</td>
+            <td class="zoom font-weight-bold">{{punchdata.total_Attendance}}</td>
+            <th> 
+                <a href="{% url 'punchings' year month %}" class="viewa " style="text-decoration: none;">
+                    view <br>Punchings <br>
+                    <i class="fas fa-fingerprint"></i>
+                </a>
+            </th>
+          </tr>
+
+      </tbody>
+    </table>
+</div>
+
+<!-- Mobile view -->
+<div class="container d-block d-md-none">
+  <div class="flex justify-between mx-1 mb-4" style="margin-top: -71px;">
+    <div class="flex justify-end">
+      <a href="{% url 'pnhome' %}"
+          class="flex items-center justify-center px-2 py-1 text-xs uppercase border rounded-full gap-x-1 hover:bg-gray-50 text-decoration-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
+              clip-rule="evenodd" />
+          </svg>
+          Go Back
+      </a>
+    </div>
+    
+    <div class="grid item-center">
+      <a href="{% url 'pnhome' %}" style="font-weight: 600; font-size: large; text-decoration: none; ;">Work From Office</a>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <!-- <select name="" id=""  class="w-full mx-3" style="background: #224092; color: white; font-weight: 500; height: 25px;text-align: center;"> 
+      {% for mn in total_months %}
+        {% if mn.month == month and mn.year == year%}
+        <option value="{% url 'idpunching' mn.year mn.month %}" selected> {{mn.year}}  {{mn.month}}</option>
+        {% else %}
+        <option value="{% url 'idpunching' mn.year mn.month %}">{{mn.year}}  {{mn.month}}</option>
+        {% endif %}
+      {% endfor %}
+    </select> -->
+    
+      
+    <div class="w-full mx-3" style="background: #224092; color: white; font-weight: 500; height: 25px;text-align: center;">
+      <h3 style="position: relative;bottom: -1px;">{{year}}  {{month_name}}</h3>
+    </div>
+    <div class="col-md-2 " style="width: 50%; "> 
+      <!--Metric Card-->
+      <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 " style="min-height: 84px;">
+          <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-2">
+                  <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-table fa-inverse"></i></div>
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                  <h5 class="font-bold capitalize " style="font-size: 15px; ">WFO </h5>
+                  <h3 class="font-bold " style="font-size: medium;">{{punchdata.WFO_attendance}} <span class="text-blue-500"></span></h3>
+              </div>
+          </div>
+      </div>
+      <!--/Metric Card-->
+    </div>
+    <div class="col-md-2 " style="width: 50%;"> 
+      <!--Metric Card-->
+      <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 " style="min-height: 84px;">
+          <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-2">
+                  <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-user-clock fa-inverse"></i></div>
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                  <h5 class="font-bold capitalize " style="font-size: 15px; ">OT </h5>
+                  <h3 class="font-bold " style="font-size: medium;">{{punchdata.OT_attendance}} <span class="text-blue-500"></span></h3>
+              </div>
+          </div>
+      </div>
+      <!--/Metric Card-->
+    </div>
+    <div class="col-md-2 " style="width: 50%;"> 
+      <!--Metric Card-->
+      <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 " style="min-height: 84px;">
+          <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-2">
+                  <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-table fa-inverse"></i></div>
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                  <h5 class="font-bold capitalize" style="font-size: 15px;">WFH </h5>
+                  <h3 class="font-bold " style="font-size: medium;">{{punchdata.WFH_attendance}} <span class="text-blue-500"></span></h3>
+              </div>
+          </div>
+      </div>
+      <!--/Metric Card-->
+    </div>
+    <div class="col-md-2 " style="width: 50%;"> 
+      <!--Metric Card-->
+      <div class="sh shadow shadow-primary shadow-intensity-lg p-2 mt-3 " style="min-height: 84px;">
+          <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-2">
+                  <div class="rounded-full p-1 bg-yellow-600"><i class="fas fa-exclamation-triangle fa-inverse"></i></div>
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                  <h5 class="font-bold capitalize" style="font-size: 15px; ">Mistakes</h5>
+                  <h3 class="font-bold " style="font-size: medium;">{{punchdata.Punching_Mistake}} <span class="text-blue-500"></span></h3>
+              </div>
+          </div>
+      </div>
+      <!--/Metric Card-->
+    </div>
+    <div class="col-md-2 " style="width: 50%;"> 
+      <!--Metric Card-->
+      <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 " style="min-height: 84px;">
+          <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-2">
+                  <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-clock fa-inverse"></i></div>
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                  <h5 class="font-bold capitalize" style="font-size: 15px;">Night Shift</h5>
+                  <h3 class="font-bold " style="font-size: medium;">{{punchdata.Night_shift}} <span class="text-blue-500"></span></h3>
+              </div>
+          </div>
+      </div>
+      <!--/Metric Card-->
+    </div>
+    <div class="col-md-2 " style="width: 50%;"> 
+      <!--Metric Card-->
+      <div class="sh shadow shadow-primary shadow-intensity-lg p-2 mt-3 " style="min-height: 84px;">
+          <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-2">
+                  <div class="rounded-full p-1 bg-yellow-600"><i class="fas fa-minus-circle fa-inverse"></i></div>
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                  <h5 class="font-bold capitalize" style="font-size: 15px; ">Deductions</h5>
+                  <h3 class="font-bold " style="font-size: medium;">{{punchdata.Deduction}} <span class="text-blue-500"></span></h3>
+              </div>
+          </div>
+      </div>
+      <!--/Metric Card-->
+    </div>
+    <div class="col-md-2 " style="width: 50%;"> 
+      <!--Metric Card-->
+      <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 " style="min-height: 84px;">
+          <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-2">
+                  <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-table fa-inverse"></i></div>
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                  <h5 class="font-bold capitalize" style="font-size: 15px;">Total</h5>
+                  <h3 class="font-bold " style="font-size: medium;">{{punchdata.total_Attendance}} <span class="text-blue-500"></span></h3>
+              </div>
+          </div>
+      </div>
+      <!--/Metric Card-->
+    </div>
+    <div class="col-md-2 " style="width: 50%;">
+      <a href="{% url 'punchings' year month %}" style="text-decoration: none;">
+          <!--Metric Card-->
+          <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 " style="min-height: 84px;">
+              <div class="flex flex-row items-center">
+              <div class="flex-shrink pr-2">
+                  <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-search fa-inverse"></i></div>
+              </div>
+              <div class="flex-1 text-right md:text-center">
+                <h5 class="font-bold capitalize" style="font-size: 15px;color: black; ">view Punchings</h5>
+                <h3 class="font-bold" style="font-size: medium;"><i class="fas fa-arrow-right"></i> <span class="text-blue-500"></span></h3>
+              </div>
+            </div>
+          </div>
+          <!--/Metric Card-->
+        </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,110 @@
+<!-- Modal -->
+<div class="modal fade" id="edit-basic" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    
+    <div class="modal-content" style="width:750px; height:375px;top: 52px;right: 100px;">
+        
+        <div class="modal-header">
+            <div class="flex justify-between">
+            {{basic_salary.ifid}} {{basic_salary.name}} (Basic Salary)
+            </div>
+        </div>
+        <div class="modal-body" >
+        <form  method="post" action="{% url 'edit-basic' basic_salary.year basic_salary.month basic_salary.ifid %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="row border py-2.5 -mt-1">
+                        <div class="col-4">
+                            Grade
+                        </div>
+                        <div class="col -mt-1">
+                            {{basic_salary_form.grade}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Attendance
+                        </div>
+                        <div class="col -mt-1">
+                            {{basic_salary_form.attendance}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Grade Salary
+                        </div>
+                        <div class="col -mt-1">
+                            {{basic_salary_form.salary}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Training
+                        </div>
+                        <div class="col -mt-1">
+                            {{basic_salary_form.training_salary}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Total(Other)
+                        </div>
+                        <div class="col -mt-1">
+                            {{basic_salary_form.total_other_income}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row border py-1.5 -mt-1">
+                        <div class="col-4">
+                            Bonus
+                        </div>
+                        <div class="col">
+                            {{basic_salary_form.bonus}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Night Shift
+                        </div>
+                        <div class="col -mt-1">
+                            {{basic_salary_form.night_shift}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Rent
+                        </div>
+                        <div class="col -mt-1">
+                            {{basic_salary_form.rent}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Other
+                        </div>
+                        <div class="col -mt-1">
+                            {{basic_salary_form.other}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-2">
+                        <div class="col-4">
+                            Work Salary
+                        </div>
+                        <div class="col -mt-1">
+                            {{basic_salary_form.total_salary}}
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        <button type="submit" class="btn btn-primary" id="btnFetch">Update</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>

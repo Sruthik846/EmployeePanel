@@ -1,0 +1,48 @@
+<!-- Modal -->
+<div class="modal fade" id="updatemobile{{x.ifid}}" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    
+    <div class="modal-content" style="width:450px; height:270px;top: 52px;">
+        
+        <div class="modal-header">
+        <h4 class="modal-title">UPDATE MOBILE</h4>
+        </div>
+        <div class="modal-body" >
+        
+        <form role="form" action="{% url 'updatemobile' x.pk %}" method="POST">
+            {% csrf_token %}
+            <div class="row" style="padding-bottom: 5px;">
+                <div class="col-4">
+                    
+                    <label for="ifid" class="addmobile">IFID</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="border" name="ifid" id="" required value="{{x.ifid}}"  style="width: 230px; text-align: left;height: 30px;border-radius:0.25rem;">
+                </div>  
+            </div>
+            <div class="row" style="padding-bottom: 5px;">
+                <div class="col-4">
+                    <label for="name" class="addmobile">NAME</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="border" name="name" id="" required value="{{x.name}}"  style="width: 230px; text-align: left;height: 30px;border-radius:0.25rem;">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label for="mobile" class="addmobile">MOBILE</label>
+                </div>
+                <div class="col-8">
+                    <input type="number" name="mobile" id="" required maxlength="10" value="{{x.mobile}}" style="width: 230px; text-align: left;border: 1px solid lightgray; border-radius:0.25rem;">
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer" style="padding: 7px;">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        <button type="submit" class="btn btn-primary" id="btnFetch">UPDATE</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>

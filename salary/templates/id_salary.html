@@ -1,0 +1,259 @@
+{% extends 'ifoadmin/base.html' %}
+{% block content %}
+  <!-- MESSAGES -->
+  <div class="mx-2">
+    {% for msg in messages %}
+        {% if msg.tags == 'success' %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{msg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+            </button>
+          </div>
+        {% endif %}
+        {% if msg.tags == 'error' %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  {{msg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+            </button>
+          </div>
+        {% endif %}
+    {% endfor %}
+  </div>
+
+  <div class="overflow-hidden mx-2">
+    <!-- Back button -->
+    <div class="flex justify-start">
+      <a href="{% url 'viewsalary' basic_salary.year basic_salary.month %}"
+          class="flex items-center justify-center px-2 py-1 text-xs uppercase border rounded-full gap-x-1 hover:bg-blue-200 text-decoration-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-900" viewBox="0 0 20 20"
+              fill="currentColor">
+              <path fill-rule="evenodd"
+              d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
+              clip-rule="evenodd" />
+          </svg>
+          Go Back
+      </a>
+    </div>
+    <!-- IFID-NAME -->
+    <div class="px-5 py-4 bg-blue-900 border text-white shadow-sm rounded-lg flex justify-between mt-2 -mb-10">
+      IF{{basic_salary.ifid}} <span class="font-bold ml-2">{{basic_salary.name}}</span> 
+      <div class="flex justify-end">
+        {{basic_salary.month}} {{basic_salary.year}}
+      </div>
+    </div>
+    <!-- Basic Salary -->
+    <div class="px-5 py-4 bg-white  shadow-sm rounded-lg flex justify-center mt-5" style="border: 1px solid rgb(0, 0, 82);">
+            <div class="overflow-x-auto w-full">
+               <div class="flex justify-between">
+                 <div class="font-bold">
+                   Basic Salary
+                 </div>
+                 <div class="">
+                   <button data-toggle="modal" data-target="#edit-basic">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                   </button>
+                   {% include 'edit_basic.html' %}
+                 </div>
+                </div>
+                <table class="w-full whitespace-no-wrap "> 
+                    <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-blue-900 border-b">
+                        <th class="text-center py-3">Grade</th>
+                        <th class="text-center py-3">Grade Salary</th>
+                        <!-- <th class="text-center py-3">Training Attendance</th> -->
+                        <th class="text-center py-3">Training</th>
+                        <th class="text-center py-3">Bonus</th>
+                        <th class="text-center py-3">Night Shift</th>
+                        <th class="text-center py-3">Rent</th>
+                        <th class="text-center py-3">Other</th>
+                        <th class="text-center py-3">Total(Other)</th>
+                        <th class="text-center py-3">Attendance</th>
+                        <th class="text-center py-3 text-base">Work Salary</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-blue-100 hover:bg-blue-200">
+                            <td class="text-center py-3 text-md font-bold"">
+                                {{basic_salary.grade}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{basic_salary.salary}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{basic_salary.training_salary}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{basic_salary.bonus}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                               {{basic_salary.night_shift}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{basic_salary.rent}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{basic_salary.other}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                                {{basic_salary.total_other_income}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold">
+                              {{basic_salary.attendance}}
+                            </td>
+                            <td class="text-center py-3 text-md font-bold  text-base">
+                                {{basic_salary.total_salary}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+    </div>
+    <!-- END of Basic Salary -->
+    
+    <!-- Special Income -->
+    {% if special_income %}
+      <div class="px-5 py-4 bg-white shadow-sm rounded-lg flex justify-center mt-5" style="border: 1px solid rgb(0, 0, 82);">
+        <div class="overflow-x-auto w-full">
+          <div class="flex justify-between">
+            <div class="font-bold">
+              Special Income
+            </div>
+            <div class="">
+              <button data-toggle="modal" data-target="#edit-special">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none"
+                                   viewBox="0 0 24 24" stroke="currentColor">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+               </svg>
+              </button>
+              {% include 'edit_special.html' %}
+            </div>
+          </div> 
+            <table class="w-full whitespace-no-wrap "> 
+                <thead>
+                <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-blue-900 border-b">
+                    <th class="text-center py-3">HRA</th>
+                    <th class="text-center py-3">Invest Profit</th>
+                    <th class="text-center py-3">Rsg Settlement</th>
+                    <th class="text-center py-3">Minimum Wage</th>
+                    <th class="text-center py-3">Thanal</th>
+                    <th class="text-center py-3">From Last Month</th>
+                    <th class="text-center py-3">Festival Bonus</th>
+                    <th class="text-center py-3">Savings</th>
+                    <th class="text-center py-3 text-base">Total</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y">
+                    <tr class="text-gray-700 bg-blue-100 hover:bg-blue-200">
+                        <td class="text-center px-2 py-3 text-md font-bold">
+                            {{special_income.HRA}}
+                        </td>
+                        <td class="text-center px-6 py-3 text-md font-bold">
+                            {{special_income.invest_profit}}
+                        </td>
+                        <td class="text-center px-6 py-3 text-md font-bold">
+                            {{special_income.Rsg_settlement}}
+                        </td>
+                        <td class="text-center px-16 py-3 text-md font-bold">
+                            {{special_income.minimum_wage}}
+                        </td>
+                        <td class="text-center px-16 py-3 text-md font-bold">
+                            {{special_income.survey_scheme}}
+                        </td>
+                        <td class="text-center px-16 py-3 text-md font-bold">
+                            {{special_income.from_last_month}}
+                        </td>
+                        <td class="text-center px-10 py-3 text-md font-bold">
+                            {{special_income.festival_bonus}}
+                        </td>
+                        <td class="text-center px-10 py-3 text-md font-bold">
+                          {{special_income.savings}}
+                        </td>
+                        <td class="text-center px-6 py-3 text-md font-bold text-base">
+                            {{special_income.total}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    {% endif %}
+    <!-- END of Special Income -->
+
+    <!-- Deductions -->
+    {% if deductions %}
+      <div class="px-5 py-4 bg-white shadow-sm rounded-lg flex justify-center mt-5" style="border: 1px solid rgb(0, 0, 82);">
+        <div class="overflow-x-auto w-full">
+          <div class="flex justify-between">
+            <div class="font-bold">
+              Deductions
+            </div>
+            <div class="">
+              <button data-toggle="modal" data-target="#edit-deduction">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none"
+                                   viewBox="0 0 24 24" stroke="currentColor">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                     d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+               </svg>
+              </button>
+              {% include 'edit_deduction.html' %}
+            </div>
+          </div> 
+            <table class="w-full whitespace-no-wrap "> 
+                <thead>
+                <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-red-800 border-b">
+                    <th class="px-4 py-3">To Next Month</th>
+                    <th class="px-4 py-3">Other</th>
+                    <th class="px-4 py-3 text-base">Total</th>
+                </tr>
+                </thead>
+                <tbody class="bg-white divide-y">
+                    <tr class="text-gray-700 bg-red-100 hover:bg-red-200">
+                        <td class="px-6 py-3 text-md font-bold">
+                            {{deductions.to_next_month}}
+                        </td>
+                        <td class="px-6 py-3 text-md font-bold">
+                            {{deductions.other}}
+                        </td>
+                        <td class="px-6 py-3 text-md font-bold text-base">
+                            {{deductions.total}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    {% endif %}
+    <!-- END of Deductions -->
+    <!-- Grand Total -->
+    <div class="mt-4 flex justify-end">
+      <button data-toggle="modal" data-target="#edit-grandtotal">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-blue-600" fill="none"
+                           viewBox="0 0 24 24" stroke="currentColor">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+       </svg>
+      </button>
+      
+      <div class="border bg-blue-800 px-2 py-2 rounded-lg text-blue-800">
+        {% include 'edit_grand_total.html' %}
+          <label for="" class="mr-2 text-white">Grand Total</label>
+          <span class="mt-2 mr-2 text-3xl font-bold text-white" style="position: relative; top: 3px;">
+            {% if grand_total %}
+              &#8377;{{grand_total}}
+            {% else%}
+              &#8377;{{basic_salary.total_salary}}
+            {% endif %}
+          </span>
+      </div>
+    </div>
+    <!-- END of Grand Total -->
+  </div>
+
+{% endblock %}

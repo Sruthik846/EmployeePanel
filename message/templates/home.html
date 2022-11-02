@@ -1,0 +1,130 @@
+{% extends 'ifoadmin/base.html' %}
+{% block content %}
+{% load readmore %}
+
+<div class="container">
+    <div class="row">
+        <div class="w-100 mx-3">
+            {% for msg in messages %}
+            {% if msg.tags == 'success' %}
+            <div class="alert alert-success alert-dismissible fade show h-2 " role="alert">
+               <span style="position: relative;bottom: 12px; font-size: small;"> {{msg}}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:13px; bottom: 22px;position: relative; font-weight: 300;"></i></span>
+                </button>
+            </div>
+            {% endif %}
+            {% if msg.tags == 'error' %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{msg}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px;font-weight: 300;"></i></span>
+                </button>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% if ifmessages %}
+    <div class="row mx-1">
+        <button data-toggle="modal" class="h5" data-target="#add-msg" style="border: 1px solid rgb(196, 196, 209); padding: 2px;">
+            <i class="fa fa-comment"> </i>  Add New Message
+        </button>
+        {% include 'add_msg.html' %}
+    </div>
+    <div class="row">
+        {% for imsg in ifmessages %}
+        <div class="col-md-3">
+            <div class="card rounded" style="min-height: 21rem;">
+                <div class="card-body">
+                    <div class="h-11">
+                        <span class="card-title text-capitalize font-bold">{{imsg.title|truncatechars:55}}</span>
+                    </div>
+                    
+                    <div class="mt-2" style="font-size: 12px;">{{imsg.description|truncatechars:300}}</div>
+                </div>
+                <div class="card-footer bg-transparent border-none -mb-2">
+                    {% if imsg.msgfiles %}
+                        {% for i in imsg.msgfiles %}
+                        <a href="{{i.files.url}}" class="hover:bg-gray-200">
+                            {% if i.ext == '.pdf' %}
+                            <i class="fas fa-file-pdf-o text-red-700" aria-hidden="true"></i>
+                            {% elif i.ext == '.png' or i.ext == '.jpg' or i.ext == '.jpeg' %}
+                            <i class="fas fa-picture-o text-blue-400" aria-hidden="true"></i>
+                            {% elif i.ext == '.xlsx' or i.ext == '.xls' or i.ext == '.csv' %}
+                            <i class="fas fa-file-excel-o text-green-700" aria-hidden="true"></i>
+                            {% elif i.ext == '.docx' %}
+                            <i class="fas fa-file-word-o text-blue-700" aria-hidden="true"></i>
+                            {% elif i.ext == '.pptx' %}
+                            <i class="fas fa-file-powerpoint-o text-red-500" aria-hidden="true"></i>
+                            {% else %}
+                            <i class="fas fa-file text-grey-600" aria-hidden="true"></i>
+                            {% endif %}
+                            <small>{{i.fname}} </small>
+                        </a><br>
+                        {% endfor %}
+
+                    {% else %}
+                        <small>No file attached</small>
+                    {% endif %}
+                </div>
+                <div class="card-footer bg-transparent border-bottom-0">
+                    <div class="row -mb-4">
+                        <div class="col-7 flex justify-start">
+                            <small class="text-muted">{{imsg.upload_date}}</small>
+                        </div>
+                        <div class="col flex justify-end" style="position: relative; bottom: 4px;">
+                            <a href="{% url 'edit_message' imsg.id %}" >
+                                <i class="fas fa-edit mr-4 text-green-600"></i>
+                            </a>{% include 'edit_msg.html' %}
+                            <a href="{% url 'delete_message' imsg.id %}" data-toggle="tooltip" data-placement="bottom" title="Delete">
+                                <i class="fas fa-trash text-red-600"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent h-0 border-none">
+                    <p class="card-text -mt-4">
+                        {% if imsg.timelaps%}
+                        <small class="text-muted" style="font-size: 9px;">Last updated {{imsg.timelaps}} ago</small>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        {% endfor %}
+    </div>
+
+    {% else %}
+
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="background: rgb(230, 212, 174);">
+        <div class="row">
+            <div class="col">
+                No messages available !
+            </div>
+            <div class="col">
+                <button type="button" class=" float-right"  data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">
+                        <i class="fa fa-close" style="font-size:15px;position: relative; left: 44px;"></i>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row mx-1">
+        <button data-toggle="modal" class="h5" data-target="#add-msg" style="border: 1px solid rgb(196, 196, 209); padding: 2px;">
+            <i class="fa fa-comment"> </i>  Add New Message
+        </button>
+        {% include 'add_msg.html' %}
+    </div>
+    
+    {% endif %}
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</div>
+{% endblock %}

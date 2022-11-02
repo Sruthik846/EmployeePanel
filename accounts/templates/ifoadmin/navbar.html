@@ -1,0 +1,55 @@
+{% load has_group %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-orange">
+    {% if request.user|has_group:"admin" %}
+    <a class="navbar-brand" href="{% url 'home' %}">
+      <object data="https://infolks.info/images/logo/logo.svg" style="height: 41px;width: 130px;"></object>  
+    </a>
+    {% elif request.user|has_group:"hrteam" %}
+    <a class="navbar-brand" href="{% url 'hr-home' %}">
+      <object data="https://infolks.info/images/logo/logo.svg" style="height: 41px;width: 130px;"></object>  
+    </a>
+    {% else %}
+    <a class="navbar-brand" href="">
+      <object data="https://infolks.info/images/logo/logo.svg" style="height: 41px;width: 130px;"></object>  
+    </a>
+    {% endif %}
+    <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+       >
+      <span class="navbar-toggler-icon">
+        <i class="fas fa-bars" style="color:#2e4d9f;position: relative; top: 5px;"></i>
+      </span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        
+       
+          {% if request.user|has_group:"admin" %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home"></i> <span class="sr-only">(current)</span></a>
+            </li>
+          {% if navitems %}
+            {% for key,value in navitems.items %}
+              <li class="back-items" style="position: relative;;top: 20px;">
+                <a class="nav-link" href="{% url value %}" style="color: #08277c; text-transform: capitalize;">
+                  {{key}}
+                </a>
+              </li>
+            {% endfor %}
+          {% endif %}
+          </li>
+          <span class="hello-msg">{{request.user}}
+            <br>
+          <a class="hello-msg" href="{% url 'logoutpage' %}"><span class="tooltip1"><i class="fas fa-sign-out-alt"></i><span class="signtxt">SignOut</span> </span></a></span>
+        {% elif request.user|has_group:"hrteam" %}
+            <li class="nav-item active">
+            <a class="nav-link" href="{% url 'hr-home' %}"><i class="fas fa-home"></i> <span class="sr-only">(current)</span></a>
+            </li>
+            <span class="hello-msg">{{request.user}}
+            <br>
+            <a class="hello-msg" href="{% url 'logoutpage' %}"><span class="tooltip1"><i class="fas fa-sign-out-alt"></i><span class="signtxt">SignOut</span> </span></a></span>
+
+        {% endif %}
+                
+      </ul>
+    </div>
+  </nav>

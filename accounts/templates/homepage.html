@@ -1,0 +1,14 @@
+{% extends 'ifoadmin/base.html' %}
+{% load has_group %}
+
+{% block content %}
+
+{% if request.user|has_group:"admin" %}
+    {% include 'mainpage.html' %}
+{% elif request.user|has_group:"hrteam" %}
+    {% include 'punching/hrhome.html' %}
+{% else %}
+    {% include 'accounts/home.html' %}
+{% endif %}
+
+{% endblock %}

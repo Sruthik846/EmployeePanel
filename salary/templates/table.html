@@ -1,0 +1,138 @@
+{% extends 'ifoadmin/base.html' %}
+{% block content %}
+<div class="container">
+    <!-- MESSAGES -->
+  <div class="">
+    {% for msg in messages %}
+        {% if msg.tags == 'success' %}
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{msg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+            </button>
+          </div>
+        {% endif %}
+        {% if msg.tags == 'error' %}
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  {{msg}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+            </button>
+          </div>
+        {% endif %}
+    {% endfor %}
+  </div>
+    <div class="">
+        <div class="row justify-content-between">
+            <input type="search" placeholder="Search IFID / Name" class="form-control search-input" data-table="salarytable" style="width: 280px;"/>
+        </div>
+        <div class="row justify-content-between" >
+            <table class="table-hover salarytable" style="width: 100%; ">
+                <thead class="bg-blue-900"  style= "position: sticky;top: 0;">
+                    <tr>
+                        <th class="px-6 py-2 text-sm text-white thsticky">
+                            IFID
+                        </th>
+                        <th class="px-6 py-2 text-sm text-white thsticky">
+                            NAME
+                        </th>
+                        <th class="px-6 py-2 text-sm text-white thsticky">
+                            GRAND TOTAL
+                        </th>
+                        <th></th>
+                        <th class="text-center text-sm text-white thsticky">
+                            <button data-toggle="modal" data-target="#add-salary">
+                                Add Details 
+                            </button>
+                            {% include 'add_salary.html' %}
+                        </th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-300">
+                    {% for x in salarydetails %}
+                    <tr class="whitespace-nowrap">
+                        <td class="px-6 py-2">
+                            <div class="text-sm text-gray-500 font-weight-bold">
+                                {{x.ifid}}
+                            </div>
+                        </td>
+                        <td class="px-2 py-2">
+                            <div class="text-sm text-gray-900 font-weight-bold">
+                                {{x.name}}
+                            </div>
+                        </td>
+                        <td class="px-6 py-2">
+                            <div class="text-sm text-gray-900 font-weight-bold">
+                                {% if x.grandtotal %}
+                                    {{x.grandtotal}}
+                                {% else %}
+                                    {{x.total_salary}}
+                                {% endif %}
+                            </div>
+                        </td>
+                        <td class="px-2 py-2">
+                            <div class="text-sm text-blue-900 font-weight-bold">
+                                <a href="{% url 'view-ifsalary' year month x.ifid %}">VIEW</a>  
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="text-sm text-red-800 font-weight-bold">
+                                  {% include 'delete_salary.html' %}
+                                <a href="#" data-toggle="modal" data-target="#delete-salary-{{x.ifid}}" class="hover:text-red-600">DELETE</a>  
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
+        </div>
+        
+    </div>
+
+</div>
+        
+    
+
+<!-- SEARCH TABLE -->
+<script>
+	(function(document) {
+		'use strict';
+
+		var TableFilter = (function(myArray) {
+			var search_input;
+
+			function _onInputSearch(e) {
+				search_input = e.target;
+				var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
+				myArray.forEach.call(tables, function(table) {
+					myArray.forEach.call(table.tBodies, function(tbody) {
+						myArray.forEach.call(tbody.rows, function(row) {
+							var text_content = row.textContent.toLowerCase();
+							var search_val = search_input.value.toLowerCase();
+							row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
+						});
+					});
+				});
+			}
+
+			return {
+				init: function() {
+					var inputs = document.getElementsByClassName('search-input');
+					myArray.forEach.call(inputs, function(input) {
+						input.oninput = _onInputSearch;
+					});
+				}
+			};
+		})(Array.prototype);
+
+		document.addEventListener('readystatechange', function() {
+			if (document.readyState === 'complete') {
+				TableFilter.init();
+			}
+		});
+
+	})(document);
+</script>
+{% endblock %}

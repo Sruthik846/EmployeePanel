@@ -1,0 +1,68 @@
+{% extends 'ifoadmin/base.html' %}
+{% block content %}
+
+    
+
+    
+<div class="container flex justify-center">
+
+    <div class="rounded" style="height: 51rem;border: 1px solid grey; width: 47rem;">
+        <span>
+            {% for msg in messages %}
+            {% if msg.tags == 'success' %}
+            <div class="alert alert-success alert-dismissible fade show h-2 " role="alert">
+                <span style="position: relative;bottom: 12px; font-size: small;"> {{msg}}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:13px; bottom: 22px;position: relative; font-weight: 300;"></i></span>
+                </button>
+            </div>
+            {% endif %}
+            {% if msg.tags == 'error' %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{msg}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+                </button>
+            </div>
+            {% endif %}
+            {% endfor %}                     
+        </span>
+        <div class="flex justify-start">
+            <a href="{% url 'messagehome' %}"
+                class="flex items-center justify-center px-2 py-1 text-xs uppercase border rounded-full gap-x-1 hover:bg-gray-50 text-decoration-none">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" viewBox="0 0 20 20"
+                    fill="currentColor">
+                    <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
+                    clip-rule="evenodd"/>
+                </svg>
+                Go Back
+            </a>
+        </div>
+        <div class="modal-header">
+        <h4 class="modal-title">Edit Message</h4>
+        </div>
+        <div class="modal-body" >
+            <form method="post" action="{% url 'edit_message' editmsg.id  %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="title" class="font-bold text-blue-800"> Title</label>  
+                <div class="">
+                {{form.title}}
+                </div> 
+                <label for="description" class="font-bold text-blue-800"> Description</label>   
+                <div class="">
+                {{form.description}}
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="ml-4">
+                        <input type="submit" value="UPDATE" class="upbtn cursor-pointer" name="Submit">
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    
+</div>
+{% endblock %}

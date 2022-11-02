@@ -1,0 +1,860 @@
+{% extends "user/home.html" %}
+
+{% block navurl %}
+  <a class="navbar-brand " href="{% url 'pnhome' %}" >Attendance</a>
+{% endblock  %} 
+
+{% block content %}
+{% if punchdata %}
+  <!-- Desktop latest & view option -->
+<div class="container d-none d-md-block content">
+  <div class="row">
+      <div class="col-sm-3">
+          <button onclick="showlatest()" id="tab-latest" class="w-full py-3 font-medium transition-all duration-150 border-b-2 border-gray-300 cursor-pointer sm:px-16 sm:w-auto border-blue-600 text-blue-600" style="outline: none;">
+              Latest
+          </button>
+      </div>
+      <div class="col-sm-3">
+          <button onclick="showall()" id="tab-all" class="w-full py-3 font-medium transition-all duration-150 border-b-2 border-gray-300 cursor-pointer sm:px-16 sm:w-auto" style="outline: none;">
+              All
+          </button>
+      </div>
+  </div>
+  <br>
+</div>
+ <!-- End of Desktop latest & view -->
+
+  <!-- mobile view latest & view option -->
+  <div class="container block d-md-none" style="margin-top: -75px;">
+    <div class="row">
+        <div class="col">
+            <button onclick="showlatest1()" id="tab-latest1" class="w-full py-3 font-medium transition-all duration-150 border-b-2 border-gray-300 cursor-pointer sm:px-16 sm:w-auto border-blue-600 text-blue-600" style="outline: none;">
+                Latest
+            </button>
+        </div>
+        <div class="col">
+            <button onclick="showall1()" id="tab-all1" class="w-full py-3 font-medium transition-all duration-150 border-b-2 border-gray-300 cursor-pointer sm:px-16 sm:w-auto" style="outline: none;">
+                All
+            </button>
+        </div>
+    </div>
+</div>
+  <!-- End of mobile view latest & view -->
+
+
+ <!-- DESKTOP VIEW -->
+<div id="latest" class="d-none d-lg-block ">
+    
+  <div class="row justify-content-center d-none d-md-block d-lg-block">
+    <div class="w-full mx-3" style="background: #224092; color: white; font-weight: 500;margin-left: 0px !important;padding-top: 5px; height: 35px;text-align: center;">
+      <h3 style="position: relative;bottom: -1px;">{{year}}  {{month_name}}</h3>
+    </div>
+    <div class="row">
+        <!-- <div class="col shadow shadow-primary shadow-intensity-lg" style="width:50%; box-shadow: 10px 10px 8px #758ad3;">
+             hfvcbvjkhcbkh
+        </div> -->
+      <div class="col  " style="width: 50%; "> 
+        <!--Metric Card-->
+        <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 " style="min-height: 84px;">
+            <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-2">
+                    <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-table fa-inverse"></i></div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold capitalize " style="font-size: 15px;">WFO Attendance</h5>
+                    <h3 class="font-bold " style="font-size: medium;">{{punchdata.WFO_attendance}} <span class="text-blue-500"></span></h3>
+                </div>
+            </div>
+        </div>
+        <!--/Metric Card-->
+      </div>
+      <div class="col" style="width: 50%;"> 
+        <!--Metric Card-->
+        <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 84px;">
+            <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-2">
+                    <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-user-clock fa-inverse"></i></div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold capitalize " style="font-size: 15px;">OT Attendance</h5>
+                    <h3 class="font-bold " style="font-size: medium;">{{punchdata.OT_attendance}} <span class="text-blue-500"></span></h3>
+                </div>
+            </div>
+        </div>
+        <!--/Metric Card-->
+      </div>
+      <div class="col" style="width: 50%;"> 
+        <!--Metric Card-->
+        <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 84px;">
+            <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-2">
+                    <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-table fa-inverse"></i></div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold capitalize" style="font-size: 15px;">WFH Attendance</h5>
+                    <h3 class="font-bold" style="font-size: medium;">{{punchdata.WFH_attendance}} <span class="text-blue-500"></span></h3>
+                </div>
+            </div>
+        </div>
+        <!--/Metric Card-->
+      </div>
+      <div class="col" style="width: 50%;"> 
+        <!--Metric Card-->
+        <div class="sh shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 84px;">
+            <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-2">
+                    <div class="rounded-full p-1 bg-yellow-600"><i class="fas fa-exclamation-triangle fa-inverse"></i></div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold capitalize" style="font-size: 15px; ">Punching Mistakes</h5>
+                    <h3 class="font-bold " style="font-size: medium;">{{punchdata.Punching_Mistake}} <span class="text-blue-500"></span></h3>
+                </div>
+            </div>
+        </div>
+        <!--/Metric Card-->
+      </div>
+      </div>
+      <div class="row">
+      <div class="col" style="width: 50%;"> 
+        <!--Metric Card-->
+        <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 84px;">
+            <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-2">
+                    <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-clock fa-inverse"></i></div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold capitalize" style="font-size: 15px;">Night Shift</h5>
+                    <h3 class="font-bold" style="font-size: medium;">{{punchdata.Night_shift}} <span class="text-blue-500"></span></h3>
+                </div>
+            </div>
+        </div>
+        <!--/Metric Card-->
+      </div>
+      <div class="col" style="width: 50%;"> 
+        <!--Metric Card-->
+        <div class="sh shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 84px;">
+            <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-2">
+                    <div class="rounded-full p-1 bg-yellow-600"><i class="fas fa-minus-circle fa-inverse"></i></div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold capitalize" style="font-size: 15px;">Deductions</h5>
+                    <h3 class="font-bold " style="font-size: medium;">{{punchdata.Deduction}} <span class="text-blue-500"></span></h3>
+                </div>
+            </div>
+        </div>
+        <!--/Metric Card-->
+      </div>
+      <div class="col" style="width: 50%;"> 
+        <!--Metric Card-->
+        <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 84px;">
+            <div class="flex flex-row items-center">
+                <div class="flex-shrink pr-2">
+                    <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-table fa-inverse"></i></div>
+                </div>
+                <div class="flex-1 text-right md:text-center">
+                    <h5 class="font-bold capitalize" style="font-size: 15px;">Total Attendance</h5>
+                    <h3 class="font-bold " style="font-size: medium;">{{punchdata.total_Attendance}} <span class="text-blue-500"></span></h3>
+                </div>
+            </div>
+        </div>
+        <!--/Metric Card-->
+      </div>
+      <div class="col" style="width:50%;"> 
+        <!--Metric Card-->
+        <div onclick="showDiv()" class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-1 mt-3 " style="min-height: 84px;">
+            <div class=" flex row items-center" style="padding-left: 65px;padding-top: 18px;padding-bottom: 18px;cursor: pointer;">
+                <div class="flex-shrink pr-2">
+                    <div class="rounded-full p-1 bg-blue-900 " style="color:white ;"><i class="fas fa-fingerprint"></i></div>
+                </div>
+                <div class="flex-shrink pr-2">
+                    <h5 class="font-bold capitalize" style="font-size: 13px;">View Punchings</h5>
+                    <h3 class="font-bold " style="font-size: medium;"> <span class="text-blue-500"></span></h3>
+
+                  </div>
+            </div>
+        </div>
+        <!--/Metric Card-->
+      </div>
+    </div>
+  </div>
+   <br><br>
+    <div id="div1" class="row viewpunch">
+    <!-- COLOR INFO -->
+
+    <div class="row" style="width:100% ;">
+    <div class="d-none d-sm-block">
+        <div class="row " style="position:relative;bottom:20px;padding-left: 20px;">
+            <div class="col-12 ">
+                <button type="button" class="colorbtn" 
+                        data-toggle="toggle" data-target="#sidecollps">
+                    <span style="position: relative; top: 5px;">COLOR INFO<i class="fas fa-info-circle h6" ></i></span>  
+                </button>
+                <div id="sidecollps"style="padding-left:10px">
+                    <i class="fas fa-square h3" style="color: rgba(0, 85, 4, 0.863);"></i> <b> Correct Punching</b> &nbsp;
+                    <i class="fas fa-square h3" style="color: rgba(0, 149, 194, 0.925);"></i><b> Half Day</b>  &nbsp;
+                    <i class="fas fa-square h3" style="color: rgba(243, 207, 0, 0.849);"></i><b> Mistakes</b>  &nbsp;
+                    <i class="fas fa-square h3" style="color: rgb(218, 91, 118);"></i><b> OT</b>  &nbsp;
+                    <i class="fas fa-square h3" style="color: rgba(0, 3, 175, 0.849);"></i><b> Informed</b> &nbsp; 
+                    <i class="fas fa-square h3" style="color: rgba(126, 0, 0, 0.849);"></i><b> Leave</b> 
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class= "d-block d-sm-none">
+            <div class="row mb-4" style="margin-top: -81px">
+                <div class="col-6 panel-group" >
+                    <div class="panel panel-default float-right">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                        <a data-toggle="modal" data-target="#colorinfo" href="" class=" text-decoration-none"><span style="font-size: small;text-decoration: none;">COLOR INFO<i class="fas fa-info-circle h6"></i></span></a>
+                        </h4>
+                    </div>
+                    </div>
+                </div>
+            </div>
+    </div> 
+    </div>    
+<!-- END OF COLOR INFO       -->
+<!-- d-none d-xl-block -->
+    <div class="desk" >
+        <div class="row ">
+            {% for d,pn in days.items %}
+        <div class="col-sm-1">
+            <div class="card daycard">
+            {% if pn.0 == "correct"  %}
+            <div class="card-body majorpoints" style="border-radius: 5px; background-color: rgba(0, 85, 4, 0.863); ">
+                <h5 class="card-title" style="font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style=" font-weight: 600; color: white; display: none;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "halfday" %}
+            <div class="card-body majorpoints" style="background-color: rgba(0, 149, 194, 0.925); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 600;color: rgb(255, 255, 255); display: none;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "mistake" %}
+            <div class="card-body majorpoints" style="background-color: rgba(243, 207, 0, 0.849); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 700;color: rgb(0, 0, 0); display: none;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "ot" %}
+            <div class="card-body majorpoints" style="background-color: rgb(218, 91, 118); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 600;color: rgb(255, 255, 255);display: none; ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "informed" %}
+            <div class="card-body majorpoints" style="background-color: rgba(0, 3, 175, 0.849); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 600;color: rgb(255, 255, 255);display: none; ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "leave" or pn.0 == "unknown" %}
+            <div class="card-body majorpoints" style="background-color: rgba(126, 0, 0, 0.849); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 600; color: rgb(255, 255, 255); display: none;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "notgiven" %}
+            <div class="card-body majorpoints" style="background-color: rgba(255, 255, 255, 0.849); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 400;color: rgb(0, 0, 0); display: none;font-size: 10px;">Not available</p>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+    <!-- d-none d-md-block d-xl-none -->
+    <div class="lap">
+        <div class="row ">
+            {% for d,pn in days.items %}
+        <div class="col-sm-2">
+            <div class="card daycard">
+            {% if pn.0 == "correct"  %}
+            <div class="card-body majorpoints" style="border-radius: 5px; background-color: rgba(0, 85, 4, 0.863); ">
+                <h5 class="card-title" style="font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style=" font-weight: 600; color: white; display: none;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "halfday" %}
+            <div class="card-body majorpoints" style="background-color: rgba(0, 149, 194, 0.925); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 600;color: rgb(255, 255, 255); display: none;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "mistake" %}
+            <div class="card-body majorpoints" style="background-color: rgba(243, 207, 0, 0.849); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 700;color: rgb(0, 0, 0); display: none;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "ot" %}
+            <div class="card-body majorpoints" style="background-color: rgb(218, 91, 118); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 600;color: rgb(255, 255, 255);display: none; ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "informed" %}
+            <div class="card-body majorpoints" style="background-color: rgba(0, 3, 175, 0.849); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 600;color: rgb(255, 255, 255);display: none; ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "leave" or pn.0 == "unknown" %}
+            <div class="card-body majorpoints" style="background-color: rgba(126, 0, 0, 0.849); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 600; color: rgb(255, 255, 255); display: none;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "notgiven" %}
+            <div class="card-body majorpoints" style="background-color: rgba(255, 255, 255, 0.849); border-radius: 5px" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text hiders" style="font-weight: 400;color: rgb(0, 0, 0); display: none;font-size: 10px;">Not available</p>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+    </div>
+    
+    </div>
+</div>
+</div>
+
+<div class="container">
+    <div id="all" class="d-none d-lg-block" style="display:none!important;">
+        <select id="yearDropdown"  oninput="filterTable()" style="background: #031c73;color: white;padding-left: 15px;
+																font-weight: 700;margin-top: 2p;position: relative;bottom: 3px;">
+            
+			<option>All</option>
+			<option>2021</option>
+			<option >2022</option>
+			<option>2023</option>
+			<option>2024</option>
+		  </select>
+          <br>
+        <div class="row" id="filter">
+          {% if monthdata %}
+          
+            {% for x in monthdata %}
+          
+              <div class="col-lg-3 col-md-4 col-sm-6">
+                  <div class="card card-stats">
+                      <div class="card-body ">
+                          <div class="row">
+                              <div class="col-5 col-md-4">
+                                  <div class="icon-big text-center icon-warning">
+                                    <img src="https://img.icons8.com/external-itim2101-flat-itim2101/64/000000/external-work-time-time-management-itim2101-flat-itim2101-3.png"/>                                 
+                                  </div>
+                              </div>
+                              <div class="col-7 col-md-8">
+                                  <div class="numbers">
+                                      <p class="card-category">{{x.year}}</p>
+                                      <p class="card-title text-xl" style="font-size: large;">{{x.month_name}}</p>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="card-footer ">
+                              <hr>
+                              <a href="{% url 'idpunching' x.year x.month %}" style="text-decoration: none;">
+                                <div class="stats">
+                                  view details
+                                  <i class="fa fa-arrow-right"></i>
+                                </div>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+            {% endfor %}
+            <p id="GFG_DOWN" style="display:none ;">No data</p>
+          {% else %}
+            <div class="ml-3">
+                No details Available!
+            </div>
+          {% endif %}
+        </div>
+      </div>
+</div>
+   <!-- End of desktop view -->
+
+     <!-- MOBILE VIEW -->
+   <div id="all1" class="block d-lg-none" style="display:none;">
+    {% if monthdata %}
+        {% for x in monthdata %}
+          <div class="col-lg-6 col-md-6 col-sm-6" style="padding-left: 5px;padding-right: 5px;">
+              <div class="card card-stats">
+                  <div class="card-body ">
+                      <div class="row">
+                          <div class="col-5 col-md-4">
+                              <div class="icon-big text-center icon-warning">
+                                <img src="https://img.icons8.com/external-itim2101-flat-itim2101/64/000000/external-work-time-time-management-itim2101-flat-itim2101-3.png"/>                                 
+                              </div>
+                          </div>
+                          <div class="col-7 col-md-8">
+                              <div class="numbers">
+                                  <p class="card-category">{{x.year}}</p>
+                                  <p class="card-title text-xl" style="font-size: large;">{{x.month_name}}</p>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="card-footer ">
+                          <hr>
+                          <a href="{% url 'idpunching' x.year x.month %}" style="text-decoration: none;">
+                            <div class="stats">
+                              view details
+                              <i class="fa fa-arrow-right"></i>
+                            </div>
+                          </a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        {% endfor %}
+    {% else %}
+      <div class="ml-3">
+          No details Available!
+      </div>
+    {% endif %}
+    </div>
+    <div id="latest1" class="block d-lg-none" style="margin-top:45px;">
+      <div class="container d-block d-xl-none">
+       
+        <div class="flex justify-between mx-1 mb-4" style="margin-top: -71px;">
+        </div>
+        <div class="row justify-content-center">  
+          <div class="w-full mx-3" style="background: #224092; color: white; font-weight: 500; height: 32px;padding-top: 4px;text-align: center;">
+            <h3 style="position: relative;bottom: -1px;">{{year}}  {{month_name}}</h3>
+          </div>
+          <div class="col-md-3 " style="width: 50% "> 
+            <!--Metric Card-->
+            <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 60px;">
+                <div class="flex row items-center">
+                    <div class="flex-shrink pr-2" style="padding-left:36px">
+                        <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-table fa-inverse"></i></div>
+                    </div>
+                    <div class="flex-shrink majorpoints" style="padding-left:32px ;">
+                        <h5 class="font-bold capitalize" style="font-size: 13px;">WFO</h5>
+                        <h3 class="font-bold  text-center" style="font-size:medium;">{{punchdata.WFO_attendance}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+          </div>
+          <div class="col-md-3 " style="width: 50%"> 
+            <!--Metric Card-->
+            <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 60px;">
+                <div class="flex row items-center">
+                    <div class="flex-shrink pr-2" style="padding-left:36px">
+                        <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-user-clock fa-inverse"></i></div>
+                    </div>
+                    <div class="flex-shrink majorpoints" style="padding-left:39px">
+                        <h5 class="font-bold capitalize " style="font-size: 13px;">OT</h5>
+                        <h3 class="font-bold  text-center " style="font-size: medium;">{{punchdata.OT_attendance}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+          </div>
+          <div class="col-md-3 " style="width: 50%"> 
+            <!--Metric Card-->
+            <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height:60px;">
+                <div class="flex row items-center">
+                    <div class="flex-shrink pr-2" style="padding-left:36px">
+                        <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-table fa-inverse"></i></div>
+                    </div>
+                    <div class="flex-shrink majorpoints" style="padding-left:31px">
+                        <h5 class="font-bold capitalize" style="font-size: 13px;">WFH</h5>
+                        <h3 class="font-bold  text-center " style="font-size: medium;">{{punchdata.WFH_attendance}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+          </div>
+          <div class="col-md-3 " style="width: 50%"> 
+            <!--Metric Card-->
+            <div class="sh shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 60px;">
+                <div class="flex row items-center" >
+                    <div class="flex-shrink pr-2" style="padding-left:36px ;">
+                        <div class="rounded-full p-1 bg-yellow-600"><i class="fas fa-exclamation-triangle fa-inverse"></i></div>
+                    </div>
+                    <div class="flex-shrink majorpoints" style="padding-left:21px ;">
+                        <h5 class="font-bold capitalize" style="font-size: 13px; color:black;">Mistakes</h5>
+                        <h3 class="font-bold  text-center " style="font-size: medium;">{{punchdata.Punching_Mistake}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+          </div>
+          <div class="col-md-3 " style="width: 50%"> 
+            <!--Metric Card-->
+            <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 60px;">
+                <div class="flex row items-center">
+                    <div class="flex-shrink pr-2" style="padding-left:36px ;">
+                        <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-clock fa-inverse"></i></div>
+                    </div>
+                    <div class="flex-shrink majorpoints" style="padding-left:16px ;">
+                        <h5 class="font-bold capitalize" style="font-size: 13px; ">Night Shift</h5>
+                        <h3 class="font-bold  text-center " style="font-size: medium;">{{punchdata.Night_shift}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+          </div>
+          <div class="col-md-3 " style="width: 50%"> 
+            <!--Metric Card-->
+            <div class="sh shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 " style="min-height: 60px;">
+                <div class="flex row items-center">
+                    <div class="flex-shrink pr-2" style="padding-left:36px ;">
+                        <div class="rounded-full p-1 bg-yellow-600"><i class="fas fa-minus-circle fa-inverse"></i></div>
+                    </div>
+                    <div class="flex-shrink majorpoints" style="padding-left:14px ;">
+                        <h5 class="font-bold capitalize" style="font-size: 13px; color: black;">Deductions</h5>
+                        <h3 class="font-bold  text-center " style="font-size: medium;">{{punchdata.Deduction}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div> 
+            <!--/Metric Card-->
+          </div>
+          <div class="col-md-3 " style="width: 50%;"> 
+            <!--Metric Card-->
+            <div class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 p-2 mt-3 ">
+                <div class="flex flex-row items-center" style=" height: 85px;">
+                    <div class="flex-shrink pr-2" style="padding-left: 22px;">
+                        <div class="rounded-full p-1 bg-blue-900"><i class="fas fa-table fa-inverse"></i></div>
+                    </div>
+                    <div class="flex-1 md:text-center" style="padding-left: 27px;">
+                        <h5 class="font-bold capitalize" style="font-size: 15px; ">Total</h5>
+                        <h3 class="font-bold " style="font-size: medium;">{{punchdata.total_Attendance}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+          </div>
+          <div class="col-md-3 " style="width: 50%;">
+                <!--Metric Card-->
+                <div onclick="showsdiv()" class="shadow shadow-primary shadow-intensity-lg p-2 mt-3 ">
+                    <div class="flex flex-row items-center" style="cursor: pointer;min-height: 63px;">
+                    <div class="flex-shrink pr-2" style="padding-left: 21px;">
+                        <div class="rounded-full p-1 bg-blue-900" style="color:white ;"> <i class="fas fa-fingerprint"></i></div>
+                    </div>
+                    <div class="flex-shrink pr-2">
+                      <h5 class="font-bold capitalize text-center " style="font-size: 15px;">view Punchings</h5>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="flex-shrink pr-2 js-custom-sleeve-option" style="text-align: center;">
+                    <span class="js-arrow-down"></span>
+                  </div>
+                </div>
+                <!--/Metric Card-->
+            
+          </div>
+          
+          
+        </div>
+        <br>
+          <div id="div2" class="mbpunch">
+            <!-- color info  -->
+            <div class="row">
+                <div class="col-6 panel-group"  >
+                    <div class="panel panel-default align-right">
+                      <div class="panel-heading">
+                        <h4 class="panel-title">
+                          <a data-toggle="modal" data-target="#colorinfo" href="" class=" text-decoration-none"><span style="font-size: small;text-decoration: none;">COLOR INFO<i class="fas fa-info-circle h6"></i></span></a>
+                        </h4>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal for mobile view color info-->
+<div class="modal fade" id="colorinfo" role="dialog">
+    <div class="modal-dialog modal-lg  modal-dialog-centered">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">COLOR INFO</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(0, 85, 4, 0.863);"></i>
+                </div>
+                <div class="col-4">
+                    <b> Correct</b>
+                </div>
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(0, 149, 194, 0.925);"></i>
+                </div>
+                <div class="col-5">
+                    <b> Half Day</b>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(243, 207, 0, 0.849);"></i>
+                </div>
+                <div class="col-4">
+                    <b> Mistakes</b>
+                </div>
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgb(218, 91, 118);"></i>
+                </div>
+                <div class="col-5">
+                    <b>OT</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(0, 3, 175, 0.849);"></i>
+                </div>
+                <div class="col-4">
+                    <b> Informed</b>
+                </div>
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(126, 0, 0, 0.849);"></i>
+                </div>
+                <div class="col-5">
+                    <b> Leave</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+              <div class="row ">
+                  {% for d,pn in days.items %}
+                  
+                  <div class="col-sm-4" style="width: 33%;">
+                      <div class="card daycard">
+                      {% if pn.0 == "correct"  %}
+                      <div class="card-body majorpoints" style="border-radius: 5px; background-color: rgba(0, 85, 4, 0.863); ">
+                          <h5 class="card-title" style="font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                          <p class="card-text hiders" style=" font-weight: 600;font-size: larger; color: white; display: none;">{% for p in pn.1 %}
+                            {{ p }} <br>
+                            {% endfor %}</p>
+                      </div>
+                      {% elif pn.0 == "halfday" %}
+                      <div class="card-body majorpoints" style="background-color: rgba(0, 149, 194, 0.925); border-radius: 5px" >
+                          <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                          <p class="card-text hiders" style="font-weight: 600;font-size: larger;  color: rgb(255, 255, 255); display: none;">
+                            {% for p in pn.1 %}
+                            {{ p }} <br>
+                            {% endfor %}</p>
+                      </div>
+                      {% elif pn.0 == "mistake" %}
+                      <div class="card-body majorpoints" style="background-color: rgba(243, 207, 0, 0.849); border-radius: 5px" >
+                          <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                          <p class="card-text hiders" style="font-weight: 700;font-size: larger;  color: rgb(0, 0, 0); display: none;">
+                            {% for p in pn.1 %}
+                            {{ p }} <br>
+                            {% endfor %}</p>
+                      </div>
+                      {% elif pn.0 == "ot" %}
+                      <div class="card-body majorpoints" style="background-color: rgb(218, 91, 118); border-radius: 5px" >
+                          <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                          <p class="card-text hiders" style="font-weight: 600;font-size: larger;  color: rgb(255, 255, 255);display: none; ">
+                            {% for p in pn.1 %}
+                            {{ p }} <br>
+                            {% endfor %}</p>
+                      </div>
+                      {% elif pn.0 == "informed" %}
+                      <div class="card-body majorpoints" style="background-color: rgba(0, 3, 175, 0.849); border-radius: 5px" >
+                          <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                          <p class="card-text hiders" style="font-weight: 600;font-size: larger;  color: rgb(255, 255, 255);display: none; ">
+                            {% for p in pn.1 %}
+                            {{ p }} <br>
+                            {% endfor %}</p>
+                      </div>
+                      {% elif pn.0 == "leave" or pn.0 == "unknown" %}
+                      <div class="card-body majorpoints" style="background-color: rgba(126, 0, 0, 0.849); border-radius: 5px" >
+                          <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                          <p class="card-text hiders" style="font-weight: 600; color: rgb(255, 255, 255); display: none;">
+                            {% for p in pn.1 %}
+                            {{ p }} <br>
+                            {% endfor %}</p>
+                      </div>
+                      {% elif pn.0 == "notgiven" %}
+                      <div class="card-body majorpoints" style="background-color: rgba(255, 255, 255, 0.849); border-radius: 5px" >
+                          <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                          <p class="card-text hiders" style="font-weight: 400;font-size: 10px; color: rgb(0, 0, 0); display: none;font-size: 10px;">Not available</p>
+                      </div>
+                      {% endif %}
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+      
+    </div>
+    <br><br>
+    <!-- End of mobile view -->
+</div>
+{% else %}
+<div class="ml-3">
+  No details Available!
+</div>
+{% endif %}
+<script>
+  function showall() {
+    document.getElementById('all').style.display = "block";
+    let ele = document.getElementById('latest');
+    ele.setAttribute('style','display: none !important');
+    document.getElementById("tab-all").classList.add('border-blue-600','text-blue-600');
+    document.getElementById("tab-latest").classList.remove('border-blue-600','text-blue-600');
+    }
+  function showlatest() {
+    document.getElementById('latest').style.display = "block";
+    let ele = document.getElementById('all');
+    ele.setAttribute('style','display: none !important');
+    document.getElementById("tab-latest").classList.add('border-blue-600','text-blue-600');
+    document.getElementById("tab-all").classList.remove('border-blue-600','text-blue-600');
+    }
+    function showall1() {
+      document.getElementById('all1').style.display = "block";
+      let ele = document.getElementById('latest1');
+      ele.setAttribute('style','display: none !important');
+      document.getElementById("tab-all1").classList.add('border-blue-600','text-blue-600');
+      document.getElementById("tab-latest1").classList.remove('border-blue-600','text-blue-600');
+    }
+    function showlatest1() {
+      document.getElementById('latest1').style.display = "block";
+      document.getElementById('latest1').style.marginTop = "45px";
+      let ele = document.getElementById('all1');
+      ele.setAttribute('style','display: none !important');
+      document.getElementById("tab-latest1").classList.add('border-blue-600','text-blue-600');
+      document.getElementById("tab-all1").classList.remove('border-blue-600','text-blue-600');
+    }
+    
+</script>
+<script>
+  $("[data-toggle='toggle']").click(function() {
+      var selector = $(this).data("target");
+      $(selector).toggleClass('in');
+      
+  });
+</script>
+<script>
+    $('.majorpoints').click(function(){
+  $(this).find('.hiders').toggle();
+});
+</script>
+<script>
+  $('.punch').click(function(){
+$(this).find('.viewpunch').toggle();
+});
+function showDiv() {
+  div1=document.getElementById("div1");
+  div1.classList.toggle('viewpunch');
+
+};
+function showsdiv() {
+  div1=document.getElementById("div2");
+  div1.classList.toggle('mbpunch')
+};
+$('.js-custom-sleeve-option').click(function(){
+$(this).children('span').toggleClass('js-arrow-down js-arrow-up');
+
+})
+</script>
+<script>
+	function filterTable() {
+	// Variables
+	let dropdown, table, rows, cells, country, filter,sf;
+    var el_down = document.getElementById('GFG_DOWN');
+	dropdown = document.getElementById("yearDropdown");
+	table = document.getElementById("filter");
+	rows = table.getElementsByTagName("div");
+	filter = dropdown.value;
+    console.log(filter);
+    // var date = new Date();
+    // var year = date.getFullYear(); 
+	for (let row of rows) { 
+		cells = row.getElementsByTagName("p");
+		country = cells[0] || null; 
+        
+		if (filter === "All" || !country || (filter === country.textContent)) { 
+			row.style.display = ""; // shows this row
+            el_down.style.display ="none";
+			}
+           
+        else {
+			row.style.display = "none"; // hides this row
+            el_down.style.display = "";
+            
+			}
+
+            
+            
+        
+	}
+}
+
+    
+</script>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

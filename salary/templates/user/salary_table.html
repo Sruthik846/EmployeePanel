@@ -1,0 +1,383 @@
+{% extends 'user/home.html' %}
+
+{% block navurl %}
+    <a class="navbar-brand " href="{% url 'idsalary' %}" >Salary Details</a>
+{% endblock  %} 
+
+{% block content %}
+
+  <div class="row justify-content-start" style="position: relative;bottom: 20px;">
+    <table  id="myTable" class="table table-striped table-dark mx-3" style="text-align:center; text-transform:capitalize;width: 98%;">
+      <thead >
+          <tr>
+            <th colspan="10" class="monthyr" style="text-align:center; text-transform:capitalize">{{month}} {{year}}</th>
+          </tr>
+      </thead>
+    </table>
+  </div>
+  <!-- DESKTOP VIEW -->
+  <div class="d-none d-lg-block">
+        <!-- Basic Salary -->
+
+        <div class="ml-0 py-2 mb-2 bg-white w-full rounded-md shadow-xl" style="position: relative;">
+            <div class="flex justify-center font-bold">
+                Basic Salary
+            </div>
+            <div class="row justify-content-start mx-0">
+                <!--Metric Card-->
+                <div class="col-md-3"> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2  " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize" style="font-size: 15px; color: rgb(204, 212, 219);">Grade</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.grade}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Metric Card-->
+                <div class="col-md-3 "> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Attendance</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.attendance}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Metric Card-->
+                <div class="col-md-3 "> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);"> Salary</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.salary}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Metric Card-->
+                <div class="col-md-3 "> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Training Attendance</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.training_att}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Metric Card-->
+                <div class="col-md-3 "> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Training Salary</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.training_salary}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Metric Card-->
+                <div class="col-md-3 "> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Bonus</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.bonus}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Metric Card-->
+                <div class="col-md-3 "> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Night Shift</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.night_shift}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Metric Card-->
+                <div class="col-md-3 "> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Rent</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.rent}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Metric Card-->
+                <div class="col-md-3 "> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Other</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.other}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Metric  Card-->
+                <div class="col-md-3 "> 
+                    <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height: 120px;">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-1 text-right mr-3">
+                                <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Total Salary</h5><br>
+                                <h3 class="font-bold text-light text-left" style="font-size: x-large;margin-top: 15%;">&#8377; {{salarydata.total_salary}} <span class="text-blue-500"></span></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END of Basic Salary -->
+
+        <!-- Special Income -->
+        {% if special_income %}
+        <div class="px-2 py-2 bg-white shadow-xl rounded-lg flex justify-center mt-4" >
+            <div class="overflow-x-auto w-full">
+            <div class="flex justify-center font-bold">
+                Special Income
+            </div> 
+                <table class="w-full whitespace-no-wrap "> 
+                    <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-blue-900 border-b">
+                        <th class="px-4 py-3">HRA</th>
+                        <th class="px-4 py-3">Invest Profit</th>
+                        <th class="px-4 py-3">Rsg Settlement</th>
+                        <th class="px-4 py-3">Minimum Wage</th>
+                        <th class="px-4 py-3">From Last Month</th>
+                        <th class="px-4 py-3">Festival Bonus</th>
+                        <th class="px-4 py-3">Savings</th>
+                        <th class="px-4 py-3">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-blue-100 hover:bg-blue-200">
+                            <td class="px-2 py-3 text-md font-bold">
+                                {{special_income.HRA}}
+                            </td>
+                            <td class="px-6 py-3 text-md font-bold">
+                                {{special_income.invest_profit}}
+                            </td>
+                            <td class="px-6 py-3 text-md font-bold">
+                                {{special_income.Rsg_settlement}}
+                            </td>
+                            <td class="px-16 py-3 text-md font-bold">
+                                {{special_income.minimum_wage}}
+                            </td>
+                            <td class="px-16 py-3 text-md font-bold">
+                                {{special_income.from_last_month}}
+                            </td>
+                            <td class="px-10 py-3 text-md font-bold">
+                                {{special_income.festival_bonus}}
+                            </td>
+                            <td class="px-10 py-3 text-md font-bold">
+                            {{special_income.savings}}
+                            </td>
+                            <td class="px-6 py-3 text-md font-bold text-base">
+                                {{special_income.total}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+        </div>
+        </div>
+        {% endif %}
+        <!-- END of Special Income -->
+
+        <!-- Deductions -->
+        {% if deductions %}
+        <div class="px-2 py-2 bg-white shadow-xl rounded-lg flex justify-center mt-5" >
+            <div class="overflow-x-auto w-full">
+                <div class="flex justify-center font-bold">
+                Deductions
+                </div> 
+                <table class="w-full whitespace-no-wrap "> 
+                    <thead>
+                    <tr class="text-xs font-semibold tracking-wide text-left uppercase text-white bg-red-800 border-b">
+                        <th class="px-4 py-3">To Next Month</th>
+                        <th class="px-4 py-3">Other</th>
+                        <th class="px-4 py-3 text-base">Total</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y">
+                        <tr class="text-gray-700 bg-red-100 hover:bg-red-200">
+                            <td class="px-6 py-3 text-md font-bold">
+                                {{deductions.to_next_month}}
+                            </td>
+                            <td class="px-6 py-3 text-md font-bold">
+                                {{deductions.other}}
+                            </td>
+                            <td class="px-6 py-3 text-md font-bold text-base">
+                                {{deductions.total}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+        <!-- END of Deductions -->
+        <!-- Grand Total -->
+        <div class="mt-4 flex justify-end">
+            <div class="border bg-blue-800 px-2 py-2 rounded-lg text-blue-800">
+                <label for="" class="mr-2 text-white">Grand Total</label>
+                <span class="mt-2 mr-2 text-3xl font-bold text-white" style="position: relative; top: 3px;">
+                {% if grand_total %}
+                    &#8377;{{grand_total}}
+                {% else%}
+                    &#8377;{{basic_salary.total_salary}}
+                {% endif %}
+                </span>
+            </div>
+        </div>
+        <!-- END of Grand Total -->
+    
+  </div>
+
+
+  <!-- MOBILE VIEW -->
+  <div class="d-block d-lg-none">
+    <div class="" style="position: relative;bottom: 41px;">
+        <div class="row">
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Metric Card-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize" style="font-size: 15px; color: rgb(204, 212, 219);">Grade</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.grade}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Metric Card-->
+            </div>
+            <div class="col-sm-6" style="width:50%;"> 
+            <!--Metric Card-->
+            <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:150px;">
+                <div class="flex flex-row items-center">
+                    <div class="flex-1 text-right mr-3">
+                        <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Attendance</h5><br>
+                        <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.attendance}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Metric Card-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:135px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">salary</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.salary}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Metric Card-->
+            </div>
+            <div class="col-sm-6" style="width:50%;"> 
+            <!--Metric Card-->
+            <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:135px;">
+                <div class="flex flex-row items-center">
+                    <div class="flex-1 text-right mr-3">
+                        <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Training Attendance</h5><br>
+                        <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.training_att}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Metric Card-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Training Salary</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.training_salary}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Metric Card-->
+            </div>
+            <div class="col-sm-6" style="width:50%;"> 
+            <!--Metric Card-->
+            <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                <div class="flex flex-row items-center">
+                    <div class="flex-1 text-right mr-3">
+                        <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Bonus</h5><br>
+                        <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.bonus}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Metric Card-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Night Shift</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.night_shift}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Metric Card-->
+            </div>
+            <div class="col-sm-6" style="width:50%;"> 
+            <!--Metric Card-->
+            <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                <div class="flex flex-row items-center">
+                    <div class="flex-1 text-right mr-3">
+                        <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Rent</h5><br>
+                        <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">&#8377; {{salarydata.rent}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6" style="width:50%;"> 
+                <!--Metric Card-->
+                <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                    <div class="flex flex-row items-center">
+                        <div class="flex-1 text-right mr-3">
+                            <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Other</h5><br>
+                            <h3 class="font-bold text-light text-left" style="font-size: x-large; margin-top: 15%;">{{salarydata.other}} <span class="text-blue-500"></span></h3>
+                        </div>
+                    </div>
+                </div>
+                <!--/Metric Card-->
+            </div>
+            <div class="col-sm-6" style="width:50%;"> 
+            <!--Metric Card-->
+            <div id="grad1" class="border-b-4 border-blue-900 rounded-sm shadow-xl p-2 mt-2 " style="min-height:80px;">
+                <div class="flex flex-row items-center">
+                    <div class="flex-1 text-right mr-3">
+                        <h5 class="font-bold capitalize " style="font-size: 15px; color: rgb(204, 212, 219);">Total Salary</h5><br>
+                        <h3 class="font-bold text-light text-left" style="font-size: x-large;margin-top: 15%;">&#8377; {{salarydata.total_salary}} <span class="text-blue-500"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <!--/Metric Card-->
+            </div>
+        </div>
+    </div>
+    
+  </div>
+  
+{% endblock %}

@@ -1,0 +1,54 @@
+<!-- Modal -->
+<div class="modal fade" id="punchfileModal" role="dialog" onload="myFunction">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content" style="width:450px; height:270px; top: 52px; border-radius: 5px;">
+        <div class="modal-header">
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        <h4 class="modal-title">ADD MONTH</h4>
+        </div>
+        <div class="modal-body flex justify-start ml-3">
+        <form method="POST" action="{% url 'addmonth' %}" enctype="multipart/form-data" onsubmit="loadingPage()">
+           {% csrf_token %}
+           <select  name="year" class="bg-blue-800 text-light" >
+                <option value="2025">2025</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022" selected>2022</option>
+                <option value="2021">2021</option>
+            </select>
+            <select name="month" class="bg-blue-800 text-light">
+                <option value="January-February">Jan-Feb</option>
+                <option value="February-March">Feb-March</option>
+                <option value="March-April">March-April</option>
+                <option value="April-May">April-May</option>
+                <option value="May-June">May-June</option>
+                <option value="June-July">June-July</option>
+                <option value="July-August">July-Aug</option>
+                <option value="August-September">Aug-Sep</option>
+                <option value="September-October">Sep-Oct</option>
+                <option value="October-November">Oct-Nov</option>
+                <option value="November-December">Nov-Dec</option>
+                <option value="December-January">Dec-Jan</option>
+                <!-- <option value="January">January</option>
+                <option value="February">February</option>
+                <option value="March">March</option>
+                <option value="April">April</option>
+                <option value="May">May</option>
+                <option value="June">June</option>
+                <option value="July">July</option>
+                <option value="August">August</option>
+                <option value="September">September</option>
+                <option value="October">October</option>
+                <option value="November">November</option>
+                <option value="December">December</option> -->
+            </select>
+        </div>
+        <div class="modal-footer" >
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button type="submit" id="btnFetch" class="btn btn-primary mb2">ADD</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>

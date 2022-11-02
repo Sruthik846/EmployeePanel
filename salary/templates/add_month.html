@@ -1,0 +1,24 @@
+<!-- Modal -->
+<div class="modal fade" id="addmonth" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    
+    <div class="modal-content" style="width:450px; height:270px;top: 52px;">
+        
+        <div class="modal-header">
+        <h4 class="modal-title">Add Month</h4>
+        </div>
+        <div class="modal-body" >
+        
+        <form  method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="month" name="yr-mnth" value="{{ym}}" min="2018-01" max="2024-12" required>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        <button type="submit" class="btn btn-primary" id="btnFetch">Add</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>

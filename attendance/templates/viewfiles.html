@@ -1,0 +1,60 @@
+{% extends 'ifoadmin/base.html' %}
+
+
+{% block content %}
+
+
+<div class="container" >
+	{% for msg in messages %}
+		{% if msg.tags == 'success' %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+		{% endif %}
+		{% if msg.tags == 'error' %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+		{% endif %}
+	{% endfor %}
+	
+	<div class="row justify-content-between">
+		<!-- <div class="table table-responsive">	 -->
+		<table  id="punchfileTable" class="table table-striped table-dark" >
+			<thead>	
+				<tr>
+				  <th colspan="3" class="monthyr">{{month_name}} {{year}}</th>
+				</tr>
+			</thead>
+			<thead>
+				<tr>
+				<th scope="col">FILE</th>
+				<th><button type="button" style="background: none;text-decoration: none; border: none; padding: none;cursor: pointer;" data-toggle="modal" data-target="#punchfileModal">
+					<span class="tooltip1"><i class="fa fa-plus"></i><span class="tooltiptext">Add file</span> </span></button>
+					{% include 'upload_modal.html' %}
+				</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for x in filedata %}
+				<tr  class="active-row">
+					<td  style="text-transform: none;">{{x.file}}</td>
+					{% if  x.id > 351 %}
+						<td><a class="text-red-700 font-weight-bold text-decoration-none" href="#" data-toggle="modal" data-target="#delete-attendance-file-{{x.id}}">DELETE</a></td>
+							{% include 'delete_file.html' %}
+						{% else %}
+						<td></td>
+					{% endif %}
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>		
+</div>
+{% endblock %}

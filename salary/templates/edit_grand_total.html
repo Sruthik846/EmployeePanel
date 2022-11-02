@@ -1,0 +1,40 @@
+<!-- Modal -->
+<div class="modal fade" id="edit-grandtotal" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    
+    <div class="modal-content" style="width:750px; height:275px;top: 410px;right: 100px;">
+        
+        <div class="modal-header">
+            <div class="flex justify-between">
+            {{basic_salary.ifid}} {{basic_salary.name}} (Grand Total)
+            </div>
+        </div>
+        <div class="modal-body" >
+        <form  method="post" action="{% url 'edit-grandtotal' basic_salary.year basic_salary.month basic_salary.ifid %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="row border py-1.5 -mt-1">
+                        <div class="col-4">
+                            Grand Total
+                        </div>
+                        <div class="col mt-1.5">
+                            {% if GR_Total_form.total %}
+                                {{GR_Total_form.total}}
+                            {% else %}
+                                {{GR_Total_form.total_salary}}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        <button type="submit" class="btn btn-primary" id="btnFetch">Update</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>

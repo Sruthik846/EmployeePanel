@@ -1,0 +1,79 @@
+{% extends 'ifoadmin/base.html' %}
+{% block content %}
+
+<div class="container">
+
+    {% for msg in messages %}
+        {% if msg.tags == 'success' %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+		{% endif %}
+		{% if msg.tags == 'error' %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+		{% endif %}
+    {% endfor %}
+
+
+    {% if salaryfile %}
+	<div class="row justify-content-between">
+		<div class="col-6"style="float: left;position: relative; right:15px">
+			<div class="col">
+				<!-- <form method="GET" > -->
+					<!-- <input type="search" name="q"  class="search1" placeholder="Search IFID / Name"> -->
+					<!-- <button type="submit" class="searchbtn">	<i class="fa fa-search"></i></button> -->
+				<!-- </form> -->
+			</div>
+		</div>
+		<div class="row justify-content-end" style="float: right;position: relative; right:15px">
+			<button data-toggle="modal" data-target="#uploadfile" style="border: none; background-color: #2e4d9f; padding: 5px; color: aliceblue;">
+				<i class="fa fa-file-excel-o" aria-hidden="true" style="color: aliceblue;"></i>
+				UPLOAD
+			</button>
+			{% include 'upload_file.html' %}
+		</div>
+	</div>
+
+	<div class="row">
+		<table  id="myTable" class="table table-striped table-dark ">
+			<thead>
+				<tr>
+                    <th scope="col">{{month}} {{year}}</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for x in salaryfile %}
+				<tr  class="active-row">
+					<td style="text-transform: none;">{{x.file}}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+    </div>		
+       
+    {% else %}
+    <div class="row alert alert-warning alert-dismissible fade show" role="alert">
+        No Datas Found !
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+        </button>
+    </div>
+    <div class="row">
+        <button data-toggle="modal" data-target="#uploadfile" style="border: none; background-color: #2e4d9f; padding: 5px; color: aliceblue;">
+            <i class="fa fa-file-excel-o" aria-hidden="true" style="color: aliceblue;"></i>
+            UPLOAD
+        </button>
+        {% include 'upload_file.html' %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'user/home.html' %}
+
+{% block navurl %}
+ <a class="navbar-brand " href="{% url 'msgHome' %}" >Messages</a>
+{% endblock  %} 
+
+{% block content %}
+<div class="container d-block d-md-none">
+    <div class="flex justify-between -mx-4 mb-4" style="margin-top: -71px;">
+      <div class="flex justify-end">
+        <a href="{% url 'msgHome' %}"
+            class="flex items-center justify-center px-2 py-1 text-xs uppercase border rounded-full gap-x-1 hover:bg-gray-50 text-decoration-none">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" viewBox="0 0 20 20"
+                fill="currentColor">
+                <path fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
+                clip-rule="evenodd" />
+            </svg>
+            Go Back
+        </a>
+      </div>
+      
+      <div class="grid item-center">
+        <a href="{% url 'msgHome' %}" style="font-weight: 600; font-size: large; text-decoration: none; ;">Messages</a>
+      </div>
+    </div>
+</div>
+<div class="row">
+    <div class="card rounded" style="min-height: 22rem;background: none;">
+        <div class="card-body">
+          <div class="h-11">
+            <h4 class="card-title text-capitalize font-bold text-2xl">{{msg.title|truncatechars:55}}</h4>
+          </div>
+          <div class="">
+              <p class="card-text mt-3">{{msg.description}}</p>
+          </div>
+          
+          
+        </div>
+        <div class="card-footer bg-transparent border-none -mb-2">
+            {% if msg.msgfiles %}
+                {% for i in msg.msgfiles %}
+                <a href="{{i.files.url}}" class="hover:bg-gray-200">
+                    {% if i.ext == '.pdf' %}
+                    <i class="fas fa-file-pdf-o text-red-700" aria-hidden="true"></i>
+                    {% elif i.ext == '.png' or i.ext == '.jpg' or i.ext == '.jpeg' %}
+                    <i class="fas fa-picture-o text-blue-400" aria-hidden="true"></i>
+                    {% elif i.ext == '.xlsx' or i.ext == '.xls' or i.ext == '.csv' %}
+                    <i class="fas fa-file-excel-o text-green-700" aria-hidden="true"></i>
+                    {% elif i.ext == '.docx' %}
+                    <i class="fas fa-file-word-o text-blue-700" aria-hidden="true"></i>
+                    {% elif i.ext == '.pptx' %}
+                    <i class="fas fa-file-powerpoint-o text-red-500" aria-hidden="true"></i>
+                    {% else %}
+                    <i class="fas fa-file text-grey-600" aria-hidden="true"></i>
+                    {% endif %}
+                    <small>{{i.fname}} </small>
+            </a><br>
+          {% endfor %}
+
+            {% else %}
+                <small>No file attached</small>
+            {% endif %}
+        </div>
+        <div class="card-footer bg-transparent border-bottom-0">
+            <div class="row -mb-4">
+                <div class="col-7 flex justify-start">
+                    <small class="text-muted">{{msg.upload_date}}</small>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-transparent h-0 border-none">
+            <p class="card-text -mt-4">
+                {% if msg.timelaps %}
+                <!-- <small class="text-muted" style="font-size: 9px;">Last updated {{imsg.timelaps}} ago</small> -->
+                {% endif %}
+            </p>
+        </div>
+    </div>
+  </div>
+<!-- ------------------- MOBILE VIEW ----------------- -->
+
+{% endblock %}

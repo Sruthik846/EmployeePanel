@@ -1,0 +1,252 @@
+<!-- Modal -->
+<div class="modal fade" id="add-salary" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    
+    <div class="modal-content shadow-2xl" style="width:750px; height:550px;top: 52px;right: 100px;">
+        
+        <div class="modal-header">
+            <div class="flex justify-between">
+                Salary
+            </div>
+        </div>
+        <div class="modal-body" style="max-height: calc(100% - 120px);overflow-y: scroll;">
+        <form  method="post" action="{% url 'add-salary' year month  %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Basic Salary -->
+            <fieldset>
+                <legend>Basic Salary</legend>
+                <div class="row">
+                    <div class="col">
+                        <div class="row  py-1.5 mt-1">
+                            <div class="col-4">
+                                IFID
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="ifid" class="border px-1" style="width: 100px;" required>
+                            </div>
+                        </div>
+                        <div class="row  py-2.5 -mt-1">
+                            <div class="col-4">
+                                Grade
+                            </div>
+                            <div class="col">
+                                <input type="text" name="grade" class="border px-1">
+                            </div>
+                        </div>
+                        <div class="row  py-1.5 mt-1">
+                            <div class="col-4">
+                                Attendance
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="attendance" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row  py-1.5 mt-1">
+                            <div class="col-4">
+                                Grade Salary
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="grade_salary" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row  py-1.5 mt-1">
+                            <div class="col-4">
+                                Training
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="training" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row  py-1.5 -mt-1">
+                            <div class="col-4">
+                                Bonus
+                            </div>
+                            <div class="col">
+                                <input type="number" name="bonus" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row  py-2.5 -mt-1">
+                            <div class="col-4">
+                                Name
+                            </div>
+                            <div class="col">
+                                <input type="text" name="name" class="border px-1" required>
+                            </div>
+                        </div>
+                        <div class="row  py-1.5 mt-1">
+                            <div class="col-4">
+                                Night Shift
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="night_shift" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row  py-1.5 mt-1">
+                            <div class="col-4">
+                                Rent
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="rent" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row  py-1.5 mt-1">
+                            <div class="col-4">
+                                Other
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="basic_other" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row  py-1.5 mt-1">
+                            <div class="col-4">
+                                Total(Other)
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="basic_other_total" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row  py-1.5 mt-2">
+                            <div class="col-4">
+                                Work Salary
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="basic_total" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </fieldset>
+            <!-- Special Income -->
+            <fieldset>
+                <legend>Special Income</legend>
+                <div class="row">
+                    <div class="col">
+                        <div class="row py-1.5 -mt-1">
+                            <div class="col-4">
+                                HRA
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="hra" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row py-1.5 mt-1">
+                            <div class="col-4">
+                                Invest Profit
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="invest_profit" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row py-1.5 mt-1">
+                            <div class="col-4">
+                                Rsg Settlement
+                            </div>
+                            <div class="col mt-1.5">
+                                <input type="number" name="rsg_settle" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row py-1.5 mt-1">
+                            <div class="col-4">
+                                Minimum Wage
+                            </div>
+                            <div class="col mt-1.5">
+                                <input type="number" name="minimum_wage" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row py-1.5 mt-1">
+                            <div class="col-4">
+                                Thanal
+                            </div>
+                            <div class="col mt-1.5">
+                                <input type="number" name="thanal" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row py-1.5 -mt-1">
+                            <div class="col-4">
+                                From Last Month
+                            </div>
+                            <div class="col mt-1.5">
+                                <input type="number" name="from_last_month" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row py-1.5 mt-1">
+                            <div class="col-4">
+                                Festival Bonus
+                            </div>
+                            <div class="col  mt-1.5">
+                                <input type="number" name="festival_bonus" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row py-1.5 mt-1">
+                            <div class="col-4">
+                                Savings
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="savings" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row py-1.5 mt-1">
+                            <div class="col-4">
+                                Total
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="special_total" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </fieldset>
+            <!-- Deductions -->
+            <fieldset>
+                <legend>Deductions</legend>
+                <div class="row">
+                    <div class="col">
+                        <div class="row py-1.5 -mt-1 my-3">
+                            <div class="col-4">
+                                To Next Month
+                            </div>
+                            <div class="col mt-1.5">
+                                <input type="number" name="to_next_month" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                        <div class="row py-3 -mt-1">
+                            <div class="col-4">
+                                Other
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="deduction_other" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                        <div class="row py-1.5 mt-1">
+                            <div class="col-4">
+                                Total
+                            </div>
+                            <div class="col -mt-1">
+                                <input type="number" name="deduction_total" class="border px-1" style="width: 100px;" value="0">
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </fieldset>
+            <!-- Grand Total -->
+            <div class="row">
+                <h3 class="font-semibold px-2">Grand Total</h3 class="font-semi-bold px-2"> 
+                <input type="number" name="grand_total" class="border px-1 my-2" style="width: 100px;" value="0">
+            </div>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        <button type="submit" class="btn btn-primary" id="btnFetch">Update</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>

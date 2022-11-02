@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        .js-custom-sleeve-option {
+    width: auto;
+    min-width: 3.8rem;
+    height: 3rem;
+    display: inline-block;
+    border: 1px solid #d1cac5;
+    background: #f7f7f7;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.js-arrow-down {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid #233354;
+    position: relative;
+    left: 7px;
+}
+
+.js-arrow-up {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 6px solid #233354;
+    position: relative;
+    left: 6px;
+    bottom: 12px;
+}
+    </style>
+</head>
+<body>
+    <div>
+        <a class="js-custom-sleeve-option">
+            <span class="js-arrow-down"></span>
+        </a>
+</div>
+<script>
+    $('.js-custom-sleeve-option').click(function(){
+$(this).children('span').toggleClass('js-arrow-down js-arrow-up')
+})
+</script>   
+</body>
+</html>

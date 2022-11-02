@@ -1,0 +1,102 @@
+<!-- Modal -->
+<div class="modal fade" id="edit-special" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+    
+    <div class="modal-content shadow-xl" style="width:750px; height:410px;top: 150px;right: 100px;">
+        
+        <div class="modal-header">
+            <div class="flex justify-between">
+            {{basic_salary.ifid}} {{basic_salary.name}} (Special Income)
+            </div>
+        </div>
+        <div class="modal-body" >
+        <form  method="post" action="{% url 'edit-special' basic_salary.year basic_salary.month basic_salary.ifid %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <div class="row border py-1.5 -mt-1">
+                        <div class="col-4">
+                            HRA
+                        </div>
+                        <div class="col -mt-1">
+                            {{special_income_form.HRA}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Invest Profit
+                        </div>
+                        <div class="col -mt-1">
+                            {{special_income_form.invest_profit}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Rsg Settlement
+                        </div>
+                        <div class="col mt-1.5">
+                            {{special_income_form.Rsg_settlement}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Minimum Wage
+                        </div>
+                        <div class="col mt-1.5">
+                            {{special_income_form.minimum_wage}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="row border py-1.5 -mt-1">
+                        <div class="col-4">
+                            Thanal
+                        </div>
+                        <div class="col mt-1.5">
+                            {{special_income_form.survey_scheme}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 -mt-1">
+                        <div class="col-4">
+                            From Last Month
+                        </div>
+                        <div class="col mt-1.5">
+                            {{special_income_form.from_last_month}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Festival Bonus
+                        </div>
+                        <div class="col  mt-1.5">
+                            {{special_income_form.festival_bonus}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Savings
+                        </div>
+                        <div class="col -mt-1">
+                            {{special_income_form.savings}}
+                        </div>
+                    </div>
+                    <div class="row border py-1.5 mt-1">
+                        <div class="col-4">
+                            Total
+                        </div>
+                        <div class="col -mt-1">
+                            {{special_income_form.total}}
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        <button type="submit" class="btn btn-primary" id="btnFetch">Update</button>
+        </form>
+        </div>
+    </div>
+    </div>
+</div>

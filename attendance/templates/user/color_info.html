@@ -1,0 +1,105 @@
+<div class="d-none d-sm-block">
+    <div class="row " style="position:relative;bottom:20px">
+        <div class="col-1">
+            <a href="{% url 'idpunching' year month %}" style="text-decoration: none; font-weight: 500;">Back</a> 
+        </div>
+        <div class="col-11 ">
+            <button type="button" class="colorbtn float-right" 
+                    data-toggle="toggle" data-target="#sidecollps">
+                <span style="position: relative; top: 5px;">COLOR INFO<i class="fas fa-info-circle h6" ></i></span>  
+            </button>
+            <div id="sidecollps" class="">
+                <i class="fas fa-square h3" style="color: rgba(0, 85, 4, 0.863);"></i> <b> Correct Punching</b> &nbsp;
+                <i class="fas fa-square h3" style="color: rgba(0, 149, 194, 0.925);"></i><b> Half Day</b>  &nbsp;
+                <i class="fas fa-square h3" style="color: rgba(243, 207, 0, 0.849);"></i><b> Mistakes</b>  &nbsp;
+                <i class="fas fa-square h3" style="color: rgb(218, 91, 118);"></i><b> OT</b>  &nbsp;
+                <i class="fas fa-square h3" style="color: rgba(0, 3, 175, 0.849);"></i><b> Informed</b> &nbsp; 
+                <i class="fas fa-square h3" style="color: rgba(126, 0, 0, 0.849);"></i><b> Leave</b> 
+            </div>
+        </div>
+    </div>
+</div>
+    
+<div class= "d-block d-sm-none">
+        <div class="row mb-4" style="margin-top: -81px">
+            <div class="col-6">
+                <a href="{% url 'idpunching' year month %}"
+                    class="flex items-center px-2 py-1 text-xs uppercase border rounded-full gap-x-1 hover:bg-gray-50 text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-500" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm.707-10.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L9.414 11H13a1 1 0 100-2H9.414l1.293-1.293z"
+                        clip-rule="evenodd" />
+                    </svg>
+                    Go Back
+                </a>
+            </div>
+            <div class="col-6 panel-group" >
+                <div class="panel panel-default float-right">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="modal" data-target="#colorinfo" href="" class=" text-decoration-none"><span style="font-size: small;text-decoration: none;">COLOR INFO<i class="fas fa-info-circle h6"></i></span></a>
+                    </h4>
+                  </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<!-- Modal for mobile view-->
+<div class="modal fade" id="colorinfo" role="dialog">
+    <div class="modal-dialog modal-lg  modal-dialog-centered">
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">COLOR INFO</h4>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(0, 85, 4, 0.863);"></i>
+                </div>
+                <div class="col-4">
+                    <b> Correct</b>
+                </div>
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(0, 149, 194, 0.925);"></i>
+                </div>
+                <div class="col-5">
+                    <b> Half Day</b>
+                </div>                
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(243, 207, 0, 0.849);"></i>
+                </div>
+                <div class="col-4">
+                    <b> Mistakes</b>
+                </div>
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgb(218, 91, 118);"></i>
+                </div>
+                <div class="col-5">
+                    <b>OT</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(0, 3, 175, 0.849);"></i>
+                </div>
+                <div class="col-4">
+                    <b> Informed</b>
+                </div>
+                <div class="col-1">
+                    <i class="fas fa-square h3" style="color: rgba(126, 0, 0, 0.849);"></i>
+                </div>
+                <div class="col-5">
+                    <b> Leave</b>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+

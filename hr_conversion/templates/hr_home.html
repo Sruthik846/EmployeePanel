@@ -1,0 +1,407 @@
+{% extends 'ifoadmin/base.html' %}
+{% block content %}
+
+<div class="container" >
+	<span>
+	{% for msg in messages %}
+		{% if msg.tags == 'success' %}
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			<span aria-hidden="true"><i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i></span>
+			</button>
+		</div>
+		{% endif %}
+		{% if msg.tags == 'error' %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{msg}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">
+					<i class="fa fa-close fa-rotate-45" style="font-size:16px; font-weight: 300;"></i>
+				</span>
+			</button>
+		</div>
+		{% endif %}
+	{% endfor %}
+	</span>
+	
+
+
+{% if emp_file %}
+	<!-- ================  CONVERSION  ================ -->
+	<div class="row">
+		<div class="text-dark text-2xl font-bold">CONVERSION</div>
+	</div>
+	
+	<div class="row text-lg font-italic font-semibold">Select excel files generated from Punching machine</div>
+	<div class="row my-2">
+		<form method="POST" action="{% url 'convert' %}" enctype="multipart/form-data">
+			{% csrf_token %}
+			<input type="file" name="Excelfiles" multiple required class="browse"> <br><br><br>
+			<button type="submit" class="upldbtn py-2 px-3 -my-2">
+				MERGE AND SORT <i class="fa fa-gear text-gray-300" ></i>
+			</button>
+		</form>
+	</div> 
+
+	<div class="row bg-blue-900 h-0.5 mt-16"></div>
+	<div >
+		<!-- ========== EMP FILE ========== -->
+		<div class="row">
+			<div class="text-dark text-2xl font-bold">EMPLOYEE LIST</div>
+			<div class="w-full">
+				<div class="border-b border-gray-200 ">
+					<table class="table-hover divide-y divide-gray-300 salarytable mt-3 w-full">
+						<thead class="bg-blue-900"  style= "position: sticky;top: 0;">
+							{% if emp_file %}
+							<tr>
+								<th class="px-6 py-3 text-xl text-white thsticky">
+									{{emp_file.name}}
+								</th>
+								<th class="px-6 py-2  text-white thsticky">
+									<span class="text-xs">uploaded on : </span> <span class="text-md">{{emp_file.upload_date}}</span>
+								</th>
+								<!-- <th class="px-6 py-2 text-lg text-white thsticky">
+									<a href="{{emp_file.employee_file.url}}">Download</a> 
+								</th>
+								 -->
+
+								<th class="px-8 text-lg text-white thsticky">
+									<button type="button" style="background: none;text-decoration: none; border: none; padding: none;cursor: pointer;" data-toggle="modal" data-target="#punchfileModal">
+									UPDATE</button>
+								</th>
+								<th class="px-8 text-lg text-white thsticky">
+									<a href="{% url 'export-emp' %}" style="background: none;text-decoration: none; border: none; padding: none;cursor: pointer;color: white;" >
+									EXPORT</a>
+								</th>
+							</tr>
+							{% else %}
+							<div class="mt-2">
+								<form method="POST" action="{% url 'emp-upload' %}" enctype="multipart/form-data">
+									{% csrf_token %}
+									<input type="file" name="emp-file" required class="browse"> <span>(.xlsx)</span>
+									<br><br><br>
+									<button type="submit" class="bg-blue-900 py-1">
+										<i class="fa fa-upload text-white px-1" aria-hidden="true"></i><span class="text-white mx-2 my-2">UPLOAD FILE</span> 
+									</button>
+								</form>
+							</div>
+							{% endif %}
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	
+		<!-- ================ EMPLOYEE LIST ================ -->
+		<div class="row">
+			<div class="w-full">
+				<div class="items-center">
+					<button onclick="showCoordinator()" id="tab-coordinator" class="w-full py-3 font-medium transition-all duration-150 border-b-2 border-gray-300 cursor-pointer sm:px-16 sm:w-auto border-blue-600 text-blue-600">
+						Co-ordinators
+					</button>
+					<button onclick="showAnnotator()" id="tab-annotator" class="w-full py-3 font-medium text-gray-500 transition-all duration-150 border-b-2 border-gray-300 cursor-pointer sm:px-16 sm:w-auto">
+						Annotators
+					</button>
+					<button onclick="showHR()" id="tab-HR" class="w-full py-3 font-medium text-gray-500 transition-all duration-150 border-b-2 border-gray-300 cursor-pointer sm:px-16 sm:w-auto">
+						HR Team
+					</button>
+				</div>
+				<!-- ============ CO-ORDINATOR ============ -->
+				<div id="coordinator">
+					<div class="row justify-content-between w-full">
+						<div class="col-9">
+							<h6 class="font-weight-bold">CO-ORDINATORS ({{coordinators.count}})</h6>
+						</div>
+						<div class="col">
+							<input type="search" placeholder="Search IFID / Name" class="form-control search-input ml-8" data-table="coordinator_table" 
+								style="width: 100%; position:relative;top: 8px; border-radius:0%; padding-left: 10px;"/>
+						</div>
+					</div>
+					<div class="overflow-auto h-96 w-full ">
+						<table class="table-hover w-full divide-y divide-gray-300 coordinator_table">
+							<thead class="bg-blue-900"  style= "position: sticky;top: 0;">
+								<tr>
+									<th class="px-2 py-2 text-xs text-white thsticky">
+										SL NO
+									</th>
+									<th class="px-2 py-2 text-xs text-white thsticky">
+										IFID
+									</th>
+									<th class="px-6 py-2 text-xs text-white thsticky">
+										Name
+									</th>
+									<th class="px-6 py-2 text-xs text-white thsticky">	
+									</th>
+									<th class="px-2 py-2 text-xs text-white thsticky">
+										<div class="text-sm text-gray-300 font-weight-bold">
+											
+											<a href="#" data-toggle="modal" data-target="#add-cordntr" class="hover:text-white">ADD +</a>
+										</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody class="bg-white divide-y divide-gray-300">
+								{% for x in coordinators %}
+								<tr class="whitespace-nowrap">
+									<td class="px-2 py-2">
+										<div class="text-sm text-gray-500 font-weight-bold">
+											{{ forloop.counter }}
+										</div>
+									</td>
+									<td class="px-2 py-2">
+										<div class="text-sm text-gray-500 font-weight-bold">
+											{{x.ifid|stringformat:"04d"}}
+										</div>
+									</td>
+									<td class="px-6 py-2">
+										<div class="text-sm text-gray-900 font-weight-bold">
+											{{x.name}}
+										</div>
+									</td>
+									<td class="px-2 py-2">
+										<div class="text-sm text-green-800 font-weight-bold">
+											{% include 'edit_employee.html' %}
+											<a href="#" data-toggle="modal" data-target="#edit-employee-{{x.id}}" class="hover:text-black-600">EDIT</a> 
+										</div>
+									</td>
+									<td class="px-2 py-2">
+										<div class="text-sm text-red-800 font-weight-bold">
+											{% include 'edits_employee.html' %}
+											<a href="#" data-toggle="modal" data-target="#del-employee-{{x.id}}" class="hover:text-black-600" style="color: #cf3232;font-weight: bold;">DELETE</a> 
+										</div>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- ============= ANNOTATOR ============= -->
+				<div id="annotator" style="display: none;">
+					<div class="row justify-content-between w-full">
+						<div class="col-9">
+							<h6 class="font-weight-bold">ANNOTATORS ({{annotators.count}})</h6>
+						</div>
+						<div class="col">
+							<input type="search" placeholder="Search IFID / Name" class="form-control search-input ml-8" data-table="annotators_table" 
+								style="width: 100%; position:relative;top: 8px; border-radius:0%; padding-left: 10px;"/>
+						</div>
+					</div>
+					<div class="overflow-auto h-96 w-full">
+						<table class="table-hover w-full divide-y divide-gray-300 annotators_table">
+							<thead class="bg-blue-900"  style= "position: sticky;top: 0;">
+								<tr>
+									<th class="px-2 py-2 text-xs text-white thsticky">
+										SL NO
+									</th>
+									<th class="px-2 py-2 text-xs text-white thsticky">
+										IFID
+									</th>
+									<th class="px-6 py-2 text-xs text-white thsticky">
+										Name
+									</th>
+									<th class="px-6 py-2 text-xs text-white thsticky">	
+									</th>
+									<th class="px-2 py-2 text-xs text-white thsticky">
+										<div class="text-sm text-gray-300 font-weight-bold">
+											<a href="#" data-toggle="modal" data-target="#add-annos" class="hover:text-white">ADD +</a>
+										</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody class="bg-white divide-y divide-gray-300">
+								{% for x in annotators %}
+								<tr class="whitespace-nowrap">
+									<td class="px-2 py-2">
+										<div class="text-sm text-gray-500 font-weight-bold">
+											{{ forloop.counter }}
+										</div>
+									</td>
+									<td class="px-2 py-2">
+										<div class="text-sm text-gray-500 font-weight-bold">
+											{{x.ifid|stringformat:"04d"}}
+										</div>
+									</td>
+									<td class="px-6 py-2">
+										<div class="text-sm text-gray-900 font-weight-bold">
+											{{x.name}}
+										</div>
+									</td>
+									<td class="px-2 py-2">
+										<div class="text-sm text-green-800 font-weight-bold">
+											{% include 'edit_employee.html' %}
+											<a href="#" data-toggle="modal" data-target="#edit-employee-{{x.id}}" class="hover:text-black-600">EDIT</a> 
+										</div>
+									</td>
+									<td class="px-2 py-2">
+										<div class="text-sm text-red-800 font-weight-bold">
+											{% include 'edits_employee.html' %}
+											<a href="#" data-toggle="modal" data-target="#del-employee-{{x.id}}" class="hover:text-black-600" style="color: #cf3232;font-weight: bold;">DELETE</a> 
+										</div>
+									</td>
+									
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- ============== HR TEAM ============== -->
+				<div id="hrteam" style="display: none;">
+					<div class="row justify-content-between w-full">
+						<div class="col-9">
+							<h6 class="font-weight-bold">HR TEAM ({{hrteam.count}})</h6>
+						</div>
+						<div class="col">
+							<input type="search" placeholder="Search IFID / Name" class="form-control search-input ml-8" data-table="hr_table" 
+								style="width: 100%; position:relative;top: 8px; border-radius:0%; padding-left: 10px;"/>
+						</div>
+					</div>
+					<div class="overflow-auto h-96 w-full ">
+						<table class="table-hover w-full divide-y divide-gray-300 hr_table">
+							<thead class="bg-blue-900"  style= "position: sticky;top: 0;">
+								<tr>
+									<th class="px-2 py-2 text-xs text-white thsticky">
+										SL NO
+									</th>
+									<th class="px-2 py-2 text-xs text-white thsticky">
+										IFID
+									</th>
+									<th class="px-6 py-2 text-xs text-white thsticky">
+										Name
+									</th>
+									<th class="px-6 py-2 text-xs text-white thsticky">	
+									</th>
+									<th class="px-2 py-2 text-xs text-white thsticky">
+										<div class="text-sm text-gray-300 font-weight-bold">
+											
+											<a href="#" data-toggle="modal" data-target="#add-hrteam" class="hover:text-white">ADD +</a>
+										</div>
+									</th>
+								</tr>
+							</thead>
+							<tbody class="bg-white divide-y divide-gray-300">
+								{% for x in hrteam %}
+								<tr class="whitespace-nowrap">
+									<td class="px-2 py-2">
+										<div class="text-sm text-gray-500 font-weight-bold">
+											{{ forloop.counter }}
+										</div>
+									</td>
+									<td class="px-2 py-2">
+										<div class="text-sm text-gray-500 font-weight-bold">
+											{{x.ifid|stringformat:"04d"}}
+										</div>
+									</td>
+									<td class="px-6 py-2">
+										<div class="text-sm text-gray-900 font-weight-bold">
+											{{x.name}}
+										</div>
+									</td>
+									<td class="px-2 py-2">
+										<div class="text-sm text-green-800 font-weight-bold">
+											{% include 'edit_employee.html' %}
+											<a href="#" data-toggle="modal" data-target="#edit-employee-{{x.id}}" class="hover:text-black-600">EDIT</a> 
+										</div>
+									</td>
+									<td class="px-2 py-2">
+										<div class="text-sm text-red-800 font-weight-bold">
+											{% include 'edits_employee.html' %}
+											<a href="#" data-toggle="modal" data-target="#del-employee-{{x.id}}" class="hover:text-black-600" style="color: #cf3232;font-weight: bold;">DELETE</a> 
+										</div>
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	
+	</div>
+	
+	
+	
+</div>
+{% include 'add_coordinator.html' %}
+{% include 'add_annotator.html' %}
+{% include 'add_hrteam.html' %}
+{% include 'upload_emp.html' %}
+
+{% endif %}
+
+<!-- SEARCH TABLE -->
+<script>
+	(function(document) {
+		'use strict';
+		var TableFilter = (function(myArray) {
+			var search_input;
+
+			function _onInputSearch(e) {
+				search_input = e.target;
+				var tables = document.getElementsByClassName(search_input.getAttribute('data-table'));
+				myArray.forEach.call(tables, function(table) {
+					myArray.forEach.call(table.tBodies, function(tbody) {
+						myArray.forEach.call(tbody.rows, function(row) {
+							var text_content = row.textContent.toLowerCase();
+							var search_val = search_input.value.toLowerCase();
+							row.style.display = text_content.indexOf(search_val) > -1 ? '' : 'none';
+						});
+					});
+				});
+			}
+
+			return {
+				init: function() {
+					var inputs = document.getElementsByClassName('search-input');
+					myArray.forEach.call(inputs, function(input) {
+						input.oninput = _onInputSearch;
+					});
+				}
+			};
+		})(Array.prototype);
+
+		document.addEventListener('readystatechange', function() {
+			if (document.readyState === 'complete') {
+				TableFilter.init();
+			}
+		});
+
+	})(document);
+</script>
+
+<!-- SHOW DIV -->
+<script>
+	function showAnnotator() {
+		document.getElementById('annotator').style.display = "block";
+		document.getElementById('coordinator').style.display = "none";
+		document.getElementById('hrteam').style.display = "none";
+		document.getElementById("tab-annotator").classList.add('border-blue-600','text-blue-600');
+		document.getElementById("tab-coordinator").classList.remove('border-blue-600','text-blue-600');
+		document.getElementById("tab-HR").classList.remove('border-blue-600','text-blue-600');
+
+	}
+	function showCoordinator() {
+		document.getElementById('annotator').style.display = "none";
+		document.getElementById('coordinator').style.display = "block";
+		document.getElementById('hrteam').style.display = "none";
+		document.getElementById("tab-coordinator").classList.add('border-blue-600','text-blue-600');
+		document.getElementById("tab-HR").classList.remove('border-blue-600','text-blue-600');
+		document.getElementById("tab-annotator").classList.remove('border-blue-600','text-blue-600');
+
+
+	}
+	function showHR() {
+		document.getElementById('annotator').style.display = "none";
+		document.getElementById('coordinator').style.display = "none";
+		document.getElementById('hrteam').style.display = "block";
+		document.getElementById("tab-HR").classList.add('border-blue-600','text-blue-600');
+		document.getElementById("tab-annotator").classList.remove('border-blue-600','text-blue-600');
+		document.getElementById("tab-coordinator").classList.remove('border-blue-600','text-blue-600');
+
+	}
+</script>
+{% endblock %}

@@ -1,0 +1,287 @@
+{% extends 'user/home.html' %}
+
+{% block navurl %}
+  <a class="navbar-brand " href="{% url 'pnhome' %}" >Attendance</a>
+{% endblock  %} 
+
+{% block content %}
+
+{% include 'user/color_info.html' %}
+
+<div class="d-block d-xl-none normaldiv">
+    <div class="row">
+        {% for d,pn in days.items %}
+        <div class="col-sm-2" style="min-height: 200px;">
+            <div class="card daycard">
+            {% if pn.0 == "correct" %}
+            <div class="card-body" style="border-radius: 5px; background-color: rgba(0, 85, 4, 0.863); min-height: 200px;">
+                <h5 class="card-title" style="font-weight: 700; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style=" font-weight: 600; color: white;">
+                {% for p in pn.1 %}
+                {{ p }} <br>
+                {% endfor %}
+            </p>
+            </div>
+            {% elif pn.0 == "halfday" %}
+            <div class="card-body" style="background-color: rgba(0, 149, 194, 0.925); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "mistake" %}
+            <div class="card-body" style="background-color: rgba(243, 207, 0, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 700; color: rgb(0, 0, 0); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "ot" %}
+            <div class="card-body" style="background-color: rgb(218, 91, 118); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "informed" %}
+            <div class="card-body" style="background-color: rgba(0, 3, 175, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "leave" or pn.0 == "unknown"%}
+            <div class="card-body" style="background-color: rgba(126, 0, 0, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600;font-size:small ; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "notgiven" %}
+            <div class="card-body" style="background-color: rgba(255, 255, 255, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 400;font-size: 10px; color: rgb(0, 0, 0); ">Not available</p>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="d-none d-xl-block ">
+    <div class="row xldiv">
+        {% for d,pn in days.items %}
+        <div class="col-sm-1" style="min-height: 200px;">
+            <div class="card daycard">
+            {% if pn.0 == "correct"  %}
+            <div class="card-body" style="border-radius: 5px; background-color: rgba(0, 85, 4, 0.863); min-height: 200px;">
+                <h5 class="card-title" style="font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style=" font-weight: 600; color: white;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "halfday" %}
+            <div class="card-body" style="background-color: rgba(0, 149, 194, 0.925); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "mistake" %}
+            <div class="card-body" style="background-color: rgba(243, 207, 0, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 700; color: rgb(0, 0, 0); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "ot" %}
+            <div class="card-body" style="background-color: rgb(218, 91, 118); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "informed" %}
+            <div class="card-body" style="background-color: rgba(0, 3, 175, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}
+                </p>
+            </div>
+            {% elif pn.0 == "leave" or pn.0 == "unknown" %}
+            <div class="card-body" style="background-color: rgba(126, 0, 0, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600;font-size: small; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "notgiven" %}
+            <div class="card-body" style="background-color: rgba(255, 255, 255, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 400;font-size: 10px; color: rgb(0, 0, 0); ">Not available</p>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- 1200px to 1251px -->
+<div class="d-none d-md-block ">
+    <div class="row dnonediv">
+        {% for d,pn in days.items %}
+        <div class="col-sm-2" style="min-height: 200px;">
+            <div class="card daycard">
+            {% if pn.0 == "correct"  %}
+            <div class="card-body" style="border-radius: 5px; background-color: rgba(0, 85, 4, 0.863); min-height: 200px;">
+                <h5 class="card-title" style="font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style=" font-weight: 600; color: white;">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "halfday" %}
+            <div class="card-body" style="background-color: rgba(0, 149, 194, 0.925); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "mistake" %}
+            <div class="card-body" style="background-color: rgba(243, 207, 0, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 700; color: rgb(0, 0, 0); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "ot" %}
+            <div class="card-body" style="background-color: rgb(218, 91, 118); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "informed" %}
+            <div class="card-body" style="background-color: rgba(0, 3, 175, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600; color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "leave" or pn.0 == "unknown" %}
+            <div class="card-body" style="background-color: rgba(126, 0, 0, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 600;color: rgb(255, 255, 255); ">
+                    {% for p in pn.1 %}
+                    {{ p }} <br>
+                    {% endfor %}</p>
+            </div>
+            {% elif pn.0 == "notgiven" %}
+            <div class="card-body" style="background-color: rgba(255, 255, 255, 0.849); border-radius: 5px;min-height: 200px;" >
+                <h5 class="card-title" style=" font-weight: 700;font-size: small; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                <p class="card-text" style="font-weight: 400;font-size: 10px; color: rgb(0, 0, 0); ">Not available</p>
+            </div>
+            {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="d-block d-lg-none">
+    <div class="mobilepnch">
+        <div class="row ">
+            {% for d,pn in days.items %}
+            
+            <div class="col-sm-4" style="width: 33%;">
+                <div class="card daycard">
+                {% if pn.0 == "correct"  %}
+                <div class="card-body majorpoints" style="border-radius: 5px; background-color: rgba(0, 85, 4, 0.863); ">
+                    <h5 class="card-title" style="font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                    <p class="card-text hiders" style=" font-weight: 600;font-size: larger; color: white; display: none;">
+                        {% for p in pn.1 %}
+                        {{ p }} <br>
+                        {% endfor %}</p>
+                </div>
+                {% elif pn.0 == "halfday" %}
+                <div class="card-body majorpoints" style="background-color: rgba(0, 149, 194, 0.925); border-radius: 5px" >
+                    <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                    <p class="card-text hiders" style="font-weight: 600;font-size: larger;  color: rgb(255, 255, 255); display: none;">
+                        {% for p in pn.1 %}
+                        {{ p }} <br>
+                        {% endfor %}</p>
+                </div>
+                {% elif pn.0 == "mistake" %}
+                <div class="card-body majorpoints" style="background-color: rgba(243, 207, 0, 0.849); border-radius: 5px" >
+                    <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                    <p class="card-text hiders" style="font-weight: 700;font-size: larger;  color: rgb(0, 0, 0); display: none;">
+                        {% for p in pn.1 %}
+                        {{ p }} <br>
+                        {% endfor %}</p>
+                </div>
+                {% elif pn.0 == "ot" %}
+                <div class="card-body majorpoints" style="background-color: rgb(218, 91, 118); border-radius: 5px" >
+                    <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                    <p class="card-text hiders" style="font-weight: 600;font-size: larger;  color: rgb(255, 255, 255);display: none; ">
+                        {% for p in pn.1 %}
+                        {{ p }} <br>
+                        {% endfor %}</p>
+                </div>
+                {% elif pn.0 == "informed" %}
+                <div class="card-body majorpoints" style="background-color: rgba(0, 3, 175, 0.849); border-radius: 5px" >
+                    <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                    <p class="card-text hiders" style="font-weight: 600;font-size: larger;  color: rgb(255, 255, 255);display: none; ">
+                        {% for p in pn.1 %}
+                        {{ p }} <br>
+                        {% endfor %}</p>
+                </div>
+                {% elif pn.0 == "leave" or pn.0 == "unknown" %}
+                <div class="card-body majorpoints" style="background-color: rgba(126, 0, 0, 0.849); border-radius: 5px" >
+                    <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                    <p class="card-text hiders" style="font-weight: 600; color: rgb(255, 255, 255); display: none;">
+                        {% for p in pn.1 %}
+                        {{ p }} <br>
+                        {% endfor %}</p>
+                </div>
+                {% elif pn.0 == "notgiven" %}
+                <div class="card-body majorpoints" style="background-color: rgba(255, 255, 255, 0.849); border-radius: 5px" >
+                    <h5 class="card-title" style=" font-weight: 700;font-size: medium; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">{{pn.2}} {{d}}</h5>
+                    <p class="card-text hiders" style="font-weight: 400;font-size: 10px; color: rgb(0, 0, 0); display: none;">Not available</p>
+                </div>
+                {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</div>
+</div>
+
+<script>
+    $("[data-toggle='toggle']").click(function() {
+        var selector = $(this).data("target");
+        $(selector).toggleClass('in');
+        
+    });
+  </script>
+  <script>
+      $('.majorpoints').click(function(){
+    $(this).find('.hiders').toggle();
+});
+  </script>
+{% endblock %}

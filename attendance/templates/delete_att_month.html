@@ -1,0 +1,16 @@
+<div class="modal fade" id="delete-attendance-month-{{x.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content shadow-2xl" style="height: 204px;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete Salary</h5>
+        </div>
+        <div class="modal-body flex font-normal">
+          Are you sure to delete attendance details of {{x.year}} {{x.month}} ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          <a class="btn btn-sm btn-danger" href="{% url 'delmonth' x.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+</div>
